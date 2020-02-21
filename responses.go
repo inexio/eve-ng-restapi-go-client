@@ -1,4 +1,4 @@
-package eveNgClient
+package evengclient
 
 /*
 BasicResponse contains the data returned by the api in case of a get
@@ -59,7 +59,7 @@ LabFiles is a list of labfiles
 type LabFiles []LabFile
 
 /*
-LabFolder contains information regarding a labs folder
+LabFile contains information regarding a lab file
  */
 type LabFile struct {
 	File		string 			`json:"file"`

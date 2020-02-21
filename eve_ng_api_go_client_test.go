@@ -1,4 +1,4 @@
-package eveNgClient
+package evengclient
 
 import (
 	"github.com/spf13/viper"
@@ -103,7 +103,7 @@ func TestEveNgClient_NodeTemplates(t *testing.T) {
 		assert.True(t, len(nodeTemplates) > 0, "No node templates found during GetNodeTemplates operation")
 	}
 
-	for nodeTemplateName, _ := range nodeTemplates {
+	for nodeTemplateName := range nodeTemplates {
 		nodeTemplate, err := eveNgClient.GetNodeTemplate(nodeTemplateName)
 		if !assert.NoError(t, err, "Error during GetNodeTemplate") {
 			assert.True(t, nodeTemplate.Description != "", "No description for node template found during GetNodeTemplate operation")
@@ -544,7 +544,9 @@ func TestEveNgClient_Folders(t *testing.T) {
 	}()
 
 	foldersInOldFolderBeforeMove, err := eveNgClient.GetFolders("")
+	assert.NoError(t, err, "Error during GetFolders operation")
 	foldersInNewFolderBeforeMove, err := eveNgClient.GetFolders(newFolderName)
+	assert.NoError(t, err, "Error during GetFolder operation")
 	err = eveNgClient.MoveFolder(folderName, "/"+newFolderName+"/"+folderName)
 	if assert.NoError(t, err, "Error during MoveFolder operation") {
 		foldersInOldFolderAfterMove, err := eveNgClient.GetFolders("")
@@ -733,7 +735,9 @@ func TestEveNgClient_Labs(t *testing.T) {
 
 	defer func() {
 		labFilesInOldFolderBeforeMove, err := eveNgClient.GetLabFiles("")
+		assert.NoError(t, err, "Error during GetLabFiles operation")
 		labFilesInNewFolderBeforeMove, err := eveNgClient.GetLabFiles(folderPath)
+		assert.NoError(t, err, "Error during GetLabFiles operation")
 		err = eveNgClient.MoveLab(newLabPath, "")
 		if assert.NoError(t, err, "Error during MoveLab operation") {
 			labFilesInOldFolderAfterMove, err := eveNgClient.GetLabFiles("")

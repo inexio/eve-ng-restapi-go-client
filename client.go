@@ -1,4 +1,4 @@
-package eveNgClient
+package evengclient
 
 import (
 	"encoding/json"
