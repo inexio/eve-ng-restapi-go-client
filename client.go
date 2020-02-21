@@ -23,7 +23,7 @@ type client struct {
 
 /*
 clientData - Contains data of a client
- */
+*/
 type clientData struct {
 	baseUrl  string
 	username string
@@ -44,7 +44,7 @@ func (m *NotValidError) Error() string {
 
 /*
 isValid - returns true if a client is valid and false if a client is invalid
- */
+*/
 func (c *client) isValid() bool {
 	return c.clientData != nil
 }
@@ -70,7 +70,7 @@ func (c *client) SetUsernameAndPassword(username, password string) error {
 
 /*
 init is used for initialising the config file
- */
+*/
 func init() {
 	// Search config in home directory with name "eve-ng-api" (without extension).
 	viper.AddConfigPath("config/")
@@ -92,7 +92,7 @@ func init() {
 
 /*
 request - Is used to send either GET, POST, PUT or DELETE requests
- */
+*/
 func (c *client) request(method string, path string, body string, header, queryParams map[string]string) (*resty.Response, error) {
 	request := c.resty.R()
 	request.SetHeader("Content-Type", "application/json")
@@ -156,8 +156,8 @@ type HttpError struct {
 ErrorResponse - Contains error information.
 */
 type ErrorResponse struct {
-	Message		string		`json:"message"`
-	Status		int			`json:"status"`
+	Message string `json:"message"`
+	Status  int    `json:"status"`
 }
 
 func (h HttpError) Error() string {
@@ -187,7 +187,7 @@ func getHttpError(response *resty.Response) error {
 /*
 unmarshalDataIntoStruct - Is used to unmarshal responses from the eve-ng REST API into certain structs
 */
-func (c *client) unmarshalDataIntoStruct(responseBody []byte, i interface{}) (error) {
+func (c *client) unmarshalDataIntoStruct(responseBody []byte, i interface{}) error {
 	isResponseDataEmpty, err := checkForEmptyResponseData(responseBody)
 	if err != nil {
 		return err
@@ -217,7 +217,7 @@ func checkForEmptyResponseData(responseBody []byte) (bool, error) {
 
 /*
 urlEscapePath - Escapes special characters of a given url path
- */
+*/
 func urlEscapePath(unescaped string) string {
 	arr := strings.Split(unescaped, "/")
 	for i, partString := range strings.Split(unescaped, "/") {
@@ -228,7 +228,7 @@ func urlEscapePath(unescaped string) string {
 
 /*
 jsonEscape - Escapes special characters of a given json string
- */
+*/
 func jsonEscape(unescaped string) (string, error) {
 	escaped, err := json.Marshal(unescaped)
 	if err != nil {

@@ -11,7 +11,7 @@ import (
 TestEveNgClient_LoginLogout covers:
 	- Login
 	- Logout
- */
+*/
 func TestEveNgClient_LoginLogout(t *testing.T) {
 	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
 	if !assert.NoError(t, err, "Error while creating API client") {
@@ -38,7 +38,7 @@ func TestEveNgClient_LoginLogout(t *testing.T) {
 /*
 TestEveNgClient_GetSystemStatus covers:
 	- GetSystemStatus
- */
+*/
 func TestEveNgClient_GetSystemStatus(t *testing.T) {
 	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
 	if !assert.NoError(t, err, "Error while creating API client") {
@@ -75,7 +75,7 @@ func TestEveNgClient_GetSystemStatus(t *testing.T) {
 TestEveNgClient_GetNodeTemplates covers:
 	- GetNodeTemplates
 	- GetNodeTemplate
- */
+*/
 func TestEveNgClient_NodeTemplates(t *testing.T) {
 	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
 	if !assert.NoError(t, err, "Error while creating API client") {
@@ -208,7 +208,7 @@ func TestEveNgClient_NodeTemplates(t *testing.T) {
 /*
 TestEveNgClient_getFolderContents covers:
 	- getFolderContents
- */
+*/
 func TestEveNgClient_getFolderContents(t *testing.T) {
 	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
 	if !assert.NoError(t, err, "Error while creating API client") {
@@ -241,7 +241,7 @@ func TestEveNgClient_getFolderContents(t *testing.T) {
 /*
 TestEveNgClient_GetLabFiles covers:
 	- GetLabFiles
- */
+*/
 func TestEveNgClient_GetLabFiles(t *testing.T) {
 	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
 	if !assert.NoError(t, err, "Error while creating API client") {
@@ -273,7 +273,7 @@ func TestEveNgClient_GetLabFiles(t *testing.T) {
 /*
 TestEveNgClient_GetFolders covers:
 	- GetFolders
- */
+*/
 func TestEveNgClient_GetFolders(t *testing.T) {
 	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
 	if !assert.NoError(t, err, "Error while creating API client") {
@@ -305,7 +305,7 @@ func TestEveNgClient_GetFolders(t *testing.T) {
 /*
 TestEveNgClient_GetUserRoles covers:
 	- GetUserRoles
- */
+*/
 func TestEveNgClient_GetUserRoles(t *testing.T) {
 	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
 	if !assert.NoError(t, err, "Error while creating API client") {
@@ -330,7 +330,7 @@ func TestEveNgClient_GetUserRoles(t *testing.T) {
 
 	userRoles, err := eveNgClient.GetUserRoles()
 	if assert.NoError(t, err, "Error during GetUserRoles operation") {
-		if assert.True(t, len(userRoles) > 0 , "No user roles found during GetUserRoles") {
+		if assert.True(t, len(userRoles) > 0, "No user roles found during GetUserRoles") {
 			for roleName, roleDescription := range userRoles {
 				assert.NotEmpty(t, roleName, "RoleName is empty")
 				assert.NotEmpty(t, roleDescription, "RoleDescription is empty")
@@ -347,7 +347,7 @@ TestEveNgClient_Users covers:
 	- GetUsers
 	- GetUser
 	- RemoveUser
- */
+*/
 func TestEveNgClient_Users(t *testing.T) {
 	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
 	if !assert.NoError(t, err, "Error while creating API client") {
@@ -374,7 +374,7 @@ func TestEveNgClient_Users(t *testing.T) {
 
 	testusername := "testuser"
 	foundUsers := 0
-	err = eveNgClient.AddUser(testusername, "Test User", "test@test.test", "testpassword", "admin", "-1", "-1","internal", 127, "-1", -1, -1)
+	err = eveNgClient.AddUser(testusername, "Test User", "test@test.test", "testpassword", "admin", "-1", "-1", "internal", 127, "-1", -1, -1)
 	if assert.NoError(t, err, "Error during AddUser operation") {
 		users, err := eveNgClient.GetUsers()
 		if assert.NoError(t, err, "Error during GetUsers") {
@@ -423,7 +423,7 @@ func TestEveNgClient_Users(t *testing.T) {
 /*
 TestEveNgClient_GetNetworkTypes covers:
 	- GetNetworkTypes
- */
+*/
 func TestEveNgClient_GetNetworkTypes(t *testing.T) {
 	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
 	if !assert.NoError(t, err, "Error while creating API client") {
@@ -448,7 +448,7 @@ func TestEveNgClient_GetNetworkTypes(t *testing.T) {
 
 	networkTypes, err := eveNgClient.GetNetworkTypes()
 	if assert.NoError(t, err, "Error during GetNetworkTypes operation") {
-		if assert.True(t, len(networkTypes) > 0 , "No network types found during GetNetworkTypes") {
+		if assert.True(t, len(networkTypes) > 0, "No network types found during GetNetworkTypes") {
 			for networkType, typeDescription := range networkTypes {
 				assert.NotEmpty(t, networkType, "NetworkType is empty")
 				assert.NotEmpty(t, typeDescription, "TypeDescription is empty")
@@ -464,7 +464,7 @@ TestEveNgClient_Folders covers:
 	- GetFolders
 	- RemoveFolder
 	- MoveFolder
- */
+*/
 func TestEveNgClient_Folders(t *testing.T) {
 	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
 	if !assert.NoError(t, err, "Error while creating API client") {
@@ -500,7 +500,7 @@ func TestEveNgClient_Folders(t *testing.T) {
 			foundFolders = len(foldersAfterAdd)
 		}
 
-		testFolders, err := eveNgClient.GetFolders("/"+folderName)
+		testFolders, err := eveNgClient.GetFolders("/" + folderName)
 		if assert.NoError(t, err, "Error during GetFolders operation") {
 			assert.True(t, len(testFolders) > 0, "No folders found insider of TestFolder during GetFolders operation")
 		}
@@ -592,7 +592,7 @@ TestEveNgClient_Labs covers:
 	- GetLabNetworks
 	- GetLabNetwork
 	- RemoveLabNetwork
- */
+*/
 func TestEveNgClient_Labs(t *testing.T) {
 	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
 	if !assert.NoError(t, err, "Error while creating API client") {
@@ -654,7 +654,7 @@ func TestEveNgClient_Labs(t *testing.T) {
 
 	err = eveNgClient.EditLab(labPath, renamedTestLabName, "2", "testauthor", "A changed test laboratory")
 	if assert.NoError(t, err, "Error during EditLab operation") {
-		editedTestLab, err := eveNgClient.GetLab(renamedTestLabName+".unl")
+		editedTestLab, err := eveNgClient.GetLab(renamedTestLabName + ".unl")
 		if assert.NoError(t, err, "Error during GetLab operation") {
 			assert.NotEmpty(t, editedTestLab.Id, "Lab ID is empty")
 			assert.Equal(t, "testauthor", editedTestLab.Author, "TestLab author does not match expected value")
@@ -671,7 +671,6 @@ func TestEveNgClient_Labs(t *testing.T) {
 			assert.Equal(t, labName, testLab.Name, "TestLab name does not match expected value")
 		}
 	}
-
 
 	//Add, Get, Remove network test functions
 	foundNetworks := 0
@@ -712,17 +711,16 @@ func TestEveNgClient_Labs(t *testing.T) {
 		}
 	}()
 
-
 	//Add a new folder and remove it afterwards
 	folderName := "FolderTesting"
-	folderPath := "/"+folderName
+	folderPath := "/" + folderName
 	err = eveNgClient.AddFolder("", folderName)
 	defer func() {
-		err = eveNgClient.RemoveFolder("/"+folderName)
+		err = eveNgClient.RemoveFolder("/" + folderName)
 	}()
 
 	//MoveLab
-	newLabPath := folderPath+"/"+labName+".unl"
+	newLabPath := folderPath + "/" + labName + ".unl"
 
 	labFilesInOldFolderBeforeMove, err := eveNgClient.GetLabFiles("")
 	labFilesInNewFolderBeforeMove, err := eveNgClient.GetLabFiles(folderPath)
@@ -771,7 +769,7 @@ TestEveNgClient_Nodes covers:
 	- ConnectLabNodeInterfaceToNetwork
 	- GetLabNodeInterfaces
 	- GetLabTopology
- */
+*/
 func TestEveNgClient_Nodes(t *testing.T) {
 	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
 	if !assert.NoError(t, err, "Error while creating API client") {
@@ -882,7 +880,7 @@ func TestEveNgClient_Nodes(t *testing.T) {
 		labNodes, err := eveNgClient.GetLabNodes(labPath)
 		if assert.NoError(t, err, "Error during GetLabNodes operation") {
 			for _, labNode := range labNodes {
-				assert.Equal(t, 2, labNode.Status, "Node " + strconv.Itoa(labNode.Id) + " wasn't started correctly")
+				assert.Equal(t, 2, labNode.Status, "Node "+strconv.Itoa(labNode.Id)+" wasn't started correctly")
 			}
 		}
 	}
@@ -893,7 +891,7 @@ func TestEveNgClient_Nodes(t *testing.T) {
 			labNodes, err := eveNgClient.GetLabNodes(labPath)
 			if assert.NoError(t, err, "Error during GetLabNodes operation") {
 				for _, labNode := range labNodes {
-					assert.Equal(t, 0, labNode.Status, "Node " + strconv.Itoa(labNode.Id) + " wasn't stopped correctly")
+					assert.Equal(t, 0, labNode.Status, "Node "+strconv.Itoa(labNode.Id)+" wasn't stopped correctly")
 				}
 			}
 		}
@@ -915,7 +913,7 @@ func TestEveNgClient_Nodes(t *testing.T) {
 	//Get lab topology
 	labTopology, err := eveNgClient.GetLabTopology(labPath)
 	if assert.NoError(t, err, "Error during GetLabTopology operation") {
-		if assert.True(t, len(labTopology) > 0 , "No topologies found during GetLabTopology") {
+		if assert.True(t, len(labTopology) > 0, "No topologies found during GetLabTopology") {
 			for _, topologyPoint := range labTopology {
 				assert.NotEmpty(t, topologyPoint.Destination, "Destination is empty")
 				assert.NotNil(t, topologyPoint.DestinationLabel, "DestinationLabel is nil")

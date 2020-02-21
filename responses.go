@@ -4,17 +4,17 @@ package evengclient
 BasicResponse contains the data returned by the api in case of a get
 */
 type BasicResponse struct {
-	Code		interface{}		`json:"code"`
-	Data		interface{}		`json:"data"`
-	Message		string			`json:"message"`
-	Status		string			`json:"status"`
+	Code    interface{} `json:"code"`
+	Data    interface{} `json:"data"`
+	Message string      `json:"message"`
+	Status  string      `json:"status"`
 }
 
 /*
 CreateResponse contains the data returned by the api in case of a create
- */
+*/
 type CreateResponse struct {
-	Id		int			`json:"id"`
+	Id int `json:"id"`
 }
 
 type systemStatusResponse struct {
@@ -23,7 +23,7 @@ type systemStatusResponse struct {
 
 /*
 SystemStatus contains information regarding the system status
- */
+*/
 type SystemStatus struct {
 	Dynamips *float64
 	Vpcs     *float64
@@ -36,64 +36,64 @@ type SystemStatus struct {
 FolderContents is a list of folders and labs inside a folder
 */
 type FolderContents struct {
-	Folders			Folders			`json:"folders"`
-	LabFiles 		LabFiles		`json:"labs"`
+	Folders  Folders  `json:"folders"`
+	LabFiles LabFiles `json:"labs"`
 }
 
 /*
 Folders is a list of folders
- */
+*/
 type Folders []Folder
 
 /*
 Folder contains information regarding a folder
- */
+*/
 type Folder struct {
-	Name		string			`json:"name"`
-	Path 		string 			`json:"path"`
+	Name string `json:"name"`
+	Path string `json:"path"`
 }
 
 /*
 LabFiles is a list of labfiles
- */
+*/
 type LabFiles []LabFile
 
 /*
 LabFile contains information regarding a lab file
- */
+*/
 type LabFile struct {
-	File		string 			`json:"file"`
-	Path 		string 			`json:"path"`
+	File string `json:"file"`
+	Path string `json:"path"`
 }
 
 /*
 Lab contains information about a lab
 */
 type Lab struct {
-	Id				string			`json:"id"`
-	Name			string			`json:"name"`
-	Version			string			`json:"version"`
-	Author			string			`json:"author"`
-	Body			string			`json:"body"`
-	Description		string			`json:"description"`
-	Filename		string			`json:"filename"`
+	Id          string `json:"id"`
+	Name        string `json:"name"`
+	Version     string `json:"version"`
+	Author      string `json:"author"`
+	Body        string `json:"body"`
+	Description string `json:"description"`
+	Filename    string `json:"filename"`
 }
 
 /*
 Network contains information about a network
 */
 type Network struct {
-	Id				int				`json:"id"`
-	Count			int				`json:"count"`
-	Name			string			`json:"name"`
-	Type			string			`json:"type"`
-	Top				int				`json:"top"`
-	Left			int				`json:"left"`
-	Style			string			`json:"style"`
-	Linkstyle		string			`json:"linkstyle"`
-	Color			string			`json:"color"`
-	Label			string			`json:"label"`
-	Visibility		int				`json:"visibility"`
+	Id         int    `json:"id"`
+	Count      int    `json:"count"`
+	Name       string `json:"name"`
+	Type       string `json:"type"`
+	Top        int    `json:"top"`
+	Left       int    `json:"left"`
+	Style      string `json:"style"`
+	Linkstyle  string `json:"linkstyle"`
+	Color      string `json:"color"`
+	Label      string `json:"label"`
+	Visibility int    `json:"visibility"`
 }
 
 /*
@@ -110,43 +110,43 @@ type NetworkTypes map[string]string
 Endpoints contains information about ethernet and serial endpoints
 */
 type Endpoints struct {
-	Ethernet		EthernetEndpoints	`json:"ethernet"`
-	Serial			SerialEndpoints		`json:"serial"`
+	Ethernet EthernetEndpoints `json:"ethernet"`
+	Serial   SerialEndpoints   `json:"serial"`
 }
 
 /*
 EthernetEndpoints contains information about EthernetEndpoints
- */
+*/
 type EthernetEndpoints map[string]string
 
 /*
 SerialEndpoints contains information about SerialEndpoints
- */
+*/
 type SerialEndpoints map[string]string
 
 /*
 Node contains information about a node
 */
 type Node struct {
-	Id				int				`json:"id"`
-	Uuid			string			`json:"uuid"`
-	Name			string			`json:"name"`
-	Type			string			`json:"type"`
-	Status			int				`json:"status"`
-	Template		string			`json:"template"`
-	Cpu				int				`json:"cpu"`
-	Ram 			int 			`json:"ram"`
-	Image 			string 			`json:"image"`
-	Console 		string 			`json:"console"`
-	Ethernet 		int 			`json:"ethernet"`
-	Delay 			int 			`json:"delay"`
-	Icon 			string 			`json:"icon"`
-	Url				string 			`json:"url"`
-	Top				int				`json:"top"`
-	Left			int				`json:"left"`
-	Config			string			`json:"config"`
-	Firstmac		string			`json:"firstmac"`
-	Configlist		interface{}		`json:"configlist"`
+	Id         int         `json:"id"`
+	Uuid       string      `json:"uuid"`
+	Name       string      `json:"name"`
+	Type       string      `json:"type"`
+	Status     int         `json:"status"`
+	Template   string      `json:"template"`
+	Cpu        int         `json:"cpu"`
+	Ram        int         `json:"ram"`
+	Image      string      `json:"image"`
+	Console    string      `json:"console"`
+	Ethernet   int         `json:"ethernet"`
+	Delay      int         `json:"delay"`
+	Icon       string      `json:"icon"`
+	Url        string      `json:"url"`
+	Top        int         `json:"top"`
+	Left       int         `json:"left"`
+	Config     string      `json:"config"`
+	Firstmac   string      `json:"firstmac"`
+	Configlist interface{} `json:"configlist"`
 }
 
 /*
@@ -158,8 +158,8 @@ type Nodes map[string]Node
 Interfaces contains information about ethernet and serial interfaces
 */
 type Interfaces struct {
-	Ethernet		EthernetInterfaces	`json:"ethernet"`
-	Serial			SerialInterfaces	`json:"serial"`
+	Ethernet EthernetInterfaces `json:"ethernet"`
+	Serial   SerialInterfaces   `json:"serial"`
 }
 
 /*
@@ -167,20 +167,17 @@ EthernetInterfaces an array of EthernetInterfaces
 */
 type EthernetInterfaces []Interface
 
-
-
 /*
 SerialInterfaces an array of SerialInterfaces
 */
 type SerialInterfaces []Interface
 
-
 /*
 Interface basic interface structure
 */
 type Interface struct {
-	Name			string 			`json:"name"`
-	NetworkId		int				`json:"network_id"`
+	Name      string `json:"name"`
+	NetworkId int    `json:"network_id"`
 }
 
 /*
@@ -192,32 +189,32 @@ type TopologyPoints []Topology
 Topology contains information about a network topology point
 */
 type Topology struct {
-	Destination					string			`json:"destination"`
-	DestinationLabel			string			`json:"destination_label"`
-	DestinationType				string			`json:"destination_type"`
-	DestinationInterfaceId		string			`json:"destinationinterfaceid"`
-	DestinationNodename			string			`json:"destinationnodename"`
-	DestinationSuspend			int				`json:"destinationsuspend"`
-	DestinationDelay			int				`json:"destinationdelay"`
-	DestinationLoss				int				`json:"destinationloss"`
-	DestinationBandwidth		int				`json:"destinationbandwidth"`
-	DestinationJitter			int				`json:"destinationjitter"`
-	Source						string			`json:"source"`
-	SourceLabel 				string 			`json:"source_label"`
-	SourceType 					string			`json:"source_type"`
-	SourceNodename				string			`json:"sourcenodename"`
-	SourceInterfaceId			int				`json:"sourceinterface"`
-	SourceSuspend				int				`json:"sourcesuspend"`
-	SourceDelay					int				`json:"sourcedelay"`
-	SourceLoss					int				`json:"sourceloss"`
-	SourceBandwidth				int				`json:"sourcebandwidth"`
-	SourceJitter				int				`json:"sourcejitter"`
-	Type						string 			`json:"type"`
-	NetworkId					int				`json:"networkid"`
-	Style						string			`json:"style"`
-	Linkstyle					string			`json:"linkstyle"`
-	Label						string			`json:"label"`
-	Color						string			`json:"color"`
+	Destination            string `json:"destination"`
+	DestinationLabel       string `json:"destination_label"`
+	DestinationType        string `json:"destination_type"`
+	DestinationInterfaceId string `json:"destinationinterfaceid"`
+	DestinationNodename    string `json:"destinationnodename"`
+	DestinationSuspend     int    `json:"destinationsuspend"`
+	DestinationDelay       int    `json:"destinationdelay"`
+	DestinationLoss        int    `json:"destinationloss"`
+	DestinationBandwidth   int    `json:"destinationbandwidth"`
+	DestinationJitter      int    `json:"destinationjitter"`
+	Source                 string `json:"source"`
+	SourceLabel            string `json:"source_label"`
+	SourceType             string `json:"source_type"`
+	SourceNodename         string `json:"sourcenodename"`
+	SourceInterfaceId      int    `json:"sourceinterface"`
+	SourceSuspend          int    `json:"sourcesuspend"`
+	SourceDelay            int    `json:"sourcedelay"`
+	SourceLoss             int    `json:"sourceloss"`
+	SourceBandwidth        int    `json:"sourcebandwidth"`
+	SourceJitter           int    `json:"sourcejitter"`
+	Type                   string `json:"type"`
+	NetworkId              int    `json:"networkid"`
+	Style                  string `json:"style"`
+	Linkstyle              string `json:"linkstyle"`
+	Label                  string `json:"label"`
+	Color                  string `json:"color"`
 }
 
 /*
@@ -229,12 +226,12 @@ type Pictures []Picture
 Picture contains information about a specific picture
 */
 type Picture struct {
-	Id					int				`json:"id"`
-	Name				string 			`json:"name"`
-	Type 				string 			`json:"type"`
-	Map 				string 			`json:"map"`
-	Width 				int 			`json:"width"`
-	Height 				int 			`json:"height"`
+	Id     int    `json:"id"`
+	Name   string `json:"name"`
+	Type   string `json:"type"`
+	Map    string `json:"map"`
+	Width  int    `json:"width"`
+	Height int    `json:"height"`
 }
 
 /*
@@ -244,45 +241,45 @@ type Templates map[string]string
 
 /*
 Template contains information about a specific template
- */
+*/
 type Template struct {
-	Description			string			`json:"description"`
-	Options				Options			`json:"options"`
-	Type				string			`json:"type"`
-	Qemu				Qemu			`json:"qemu"`
+	Description string  `json:"description"`
+	Options     Options `json:"options"`
+	Type        string  `json:"type"`
+	Qemu        Qemu    `json:"qemu"`
 }
 
 /*
 Options contains information about the templates options
- */
+*/
 type Options struct {
-	Config				Config			`json:"config"`
-	Delay				Delay			`json:"delay"`
-	Ethernet			Ethernet		`json:"ethernet"`
-	Icon				Icon			`json:"icon"`
-	Image				Image			`json:"image"`
-	Name				Name			`json:"name"`
-	Nvram				Nvram			`json:"nvram"`
-	Ram					Ram				`json:"ram"`
-	Serial				Serial			`json:"serial"`
-	Uuid				Uuid			`json:"uuid"`
-	Cpulimit			Cpulimit		`json:"cpulimit"`
-	Cpu					Cpu				`json:"cpu"`
-	Firstmac			Firstmac		`json:"firstmac"`
-	Qemuversion			Qemuversion		`json:"qemuversion"`
-	Qemuarch			Qemuarch		`json:"qemuarch"`
-	Qemunic				Qemunic			`json:"qemunic"`
-	Qemuoptions			Qemuoptions		`json:"qemuoptions"`
-	Console				Console			`json:"console"`
-	Rdpuser				Rdpuser			`json:"rdpuser"`
-	Rdppassword			Rdppassword		`json:"rdppassword"`
+	Config      Config      `json:"config"`
+	Delay       Delay       `json:"delay"`
+	Ethernet    Ethernet    `json:"ethernet"`
+	Icon        Icon        `json:"icon"`
+	Image       Image       `json:"image"`
+	Name        Name        `json:"name"`
+	Nvram       Nvram       `json:"nvram"`
+	Ram         Ram         `json:"ram"`
+	Serial      Serial      `json:"serial"`
+	Uuid        Uuid        `json:"uuid"`
+	Cpulimit    Cpulimit    `json:"cpulimit"`
+	Cpu         Cpu         `json:"cpu"`
+	Firstmac    Firstmac    `json:"firstmac"`
+	Qemuversion Qemuversion `json:"qemuversion"`
+	Qemuarch    Qemuarch    `json:"qemuarch"`
+	Qemunic     Qemunic     `json:"qemunic"`
+	Qemuoptions Qemuoptions `json:"qemuoptions"`
+	Console     Console     `json:"console"`
+	Rdpuser     Rdpuser     `json:"rdpuser"`
+	Rdppassword Rdppassword `json:"rdppassword"`
 }
 
 /*
 Config contains information about a template config
- */
+*/
 type Config struct {
-	List				StringArray		`json:"list"`
+	List StringArray `json:"list"`
 	StringValTemplateOption
 }
 
@@ -298,23 +295,23 @@ type StringArray []string
 
 /*
 Delay contains information about the templates delay option
- */
+*/
 type Delay struct {
-IntValTemplateOption
+	IntValTemplateOption
 }
 
 /*
 Ethernet contains information about the templates ethernet option
 */
 type Ethernet struct {
-IntValTemplateOption
+	IntValTemplateOption
 }
 
 /*
 Icon contains information about the templates icon option
 */
 type Icon struct {
-	List				List			`json:"list"`
+	List List `json:"list"`
 	StringValTemplateOption
 }
 
@@ -322,7 +319,7 @@ type Icon struct {
 Image contains information about the templates image option
 */
 type Image struct {
-	List				StringArray		`json:"list"`
+	List StringArray `json:"list"`
 	StringValTemplateOption
 }
 
@@ -337,21 +334,21 @@ type Name struct {
 Nvram contains information about the templates nvram option
 */
 type Nvram struct {
-IntValTemplateOption
+	IntValTemplateOption
 }
 
 /*
 Ram contains information about the templates ram option
 */
 type Ram struct {
-IntValTemplateOption
+	IntValTemplateOption
 }
 
 /*
 Serial contains information about the templates Serial option
 */
 type Serial struct {
-IntValTemplateOption
+	IntValTemplateOption
 }
 
 /*
@@ -365,14 +362,14 @@ type Uuid struct {
 Cpulimit contains information about the templates Cpulimit option
 */
 type Cpulimit struct {
-IntValTemplateOption
+	IntValTemplateOption
 }
 
 /*
 Cpu contains information about the templates cpu option
 */
 type Cpu struct {
-IntValTemplateOption
+	IntValTemplateOption
 }
 
 /*
@@ -386,7 +383,7 @@ type Firstmac struct {
 Qemuversion contains information about the templates qemuversion option
 */
 type Qemuversion struct {
-	List				List			`json:"list"`
+	List List `json:"list"`
 	StringValTemplateOption
 }
 
@@ -394,7 +391,7 @@ type Qemuversion struct {
 Qemuarch contains information about the templates qemuarch option
 */
 type Qemuarch struct {
-	List				List			`json:"list"`
+	List List `json:"list"`
 	StringValTemplateOption
 }
 
@@ -402,7 +399,7 @@ type Qemuarch struct {
 Qemunic contains information about the templates qemunic option
 */
 type Qemunic struct {
-	List				List			`json:"list"`
+	List List `json:"list"`
 	StringValTemplateOption
 }
 
@@ -417,7 +414,7 @@ type Qemuoptions struct {
 Console contains information about the templates qonsole option
 */
 type Console struct {
-	List				List			`json:"list"`
+	List List `json:"list"`
 	StringValTemplateOption
 }
 
@@ -437,29 +434,29 @@ type Rdppassword struct {
 
 /*
 StringValTemplateOption contains the standard fields of a templateOption
- */
+*/
 type StringValTemplateOption struct {
-	Name				string			`json:"name"`
-	Type				string			`json:"type"`
-	Value				string			`json:"value"`
+	Name  string `json:"name"`
+	Type  string `json:"type"`
+	Value string `json:"value"`
 }
 
 /*
 IntValTemplateOption contains the standard fields of a templateOption
 */
 type IntValTemplateOption struct {
-	Name				string			`json:"name"`
-	Type				string			`json:"type"`
-	Value				int				`json:"value"`
+	Name  string `json:"name"`
+	Type  string `json:"type"`
+	Value int    `json:"value"`
 }
 
 /*
 Qemu contains information about the templates qemu option
 */
 type Qemu struct {
-	Arch				string			`json:"arch"`
-	Nic					string			`json:"nic"`
-	Options				string			`json:"options"`
+	Arch    string `json:"arch"`
+	Nic     string `json:"nic"`
+	Options string `json:"options"`
 }
 
 /*
@@ -471,27 +468,26 @@ type Users map[string]User
 User contains information about a specific user
 */
 type User struct {
-	Username		string			`json:"username"`
-	Email			string			`json:"email"`
-	ExtAuth			string			`json:"ext_auth"`
-	Ram				string			`json:"ram"`
-	Cpu				string			`json:"cpu"`
-	Expiration		string			`json:"expiration"`
-	Name			string			`json:"name"`
-	Session			string			`json:"session"`
-	Role			string			`json:"role"`
-	Online			int				`json:"online"`
-	Ip				string			`json:"ip"`
-	Folder			string			`json:"folder"`
-	Lab				string			`json:"lab"`
-	Pod				string			`json:"pod"`
-	Pexpiration		string			`json:"pexpiration"`
-	DateStart		string			`json:"datestart"`
-	DiskUsage		float64			`json:"diskusage"`
+	Username    string  `json:"username"`
+	Email       string  `json:"email"`
+	ExtAuth     string  `json:"ext_auth"`
+	Ram         string  `json:"ram"`
+	Cpu         string  `json:"cpu"`
+	Expiration  string  `json:"expiration"`
+	Name        string  `json:"name"`
+	Session     string  `json:"session"`
+	Role        string  `json:"role"`
+	Online      int     `json:"online"`
+	Ip          string  `json:"ip"`
+	Folder      string  `json:"folder"`
+	Lab         string  `json:"lab"`
+	Pod         string  `json:"pod"`
+	Pexpiration string  `json:"pexpiration"`
+	DateStart   string  `json:"datestart"`
+	DiskUsage   float64 `json:"diskusage"`
 }
 
 /*
 UserRoles - contains information about user roles
 */
 type UserRoles map[string]string
-

@@ -69,8 +69,6 @@ func (c *EveNgClient) Logout() error {
 	return nil
 }
 
-
-
 //---------- System health operations ----------//
 
 /*
@@ -92,14 +90,12 @@ func (c *EveNgClient) GetSystemStatus() (SystemStatus, error) {
 	return systemStatusResponse, nil
 }
 
-
-
 //---------- Lab operations ----------//
 
 /*
 AddLab adds a lab to
 */
-func (c *EveNgClient) AddLab(path string, name string, version string, author string, description string, body string) (error) {
+func (c *EveNgClient) AddLab(path string, name string, version string, author string, description string, body string) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -114,7 +110,7 @@ func (c *EveNgClient) AddLab(path string, name string, version string, author st
 /*
 RemoveLab remove an existing lab
 */
-func (c *EveNgClient) RemoveLab(labPath string) (error) {
+func (c *EveNgClient) RemoveLab(labPath string) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -129,7 +125,7 @@ func (c *EveNgClient) RemoveLab(labPath string) (error) {
 /*
 MoveLab moves a lab to an existing folder
 */
-func (c *EveNgClient) MoveLab(labPath string, newPath string) (error) {
+func (c *EveNgClient) MoveLab(labPath string, newPath string) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -148,7 +144,7 @@ func (c *EveNgClient) MoveLab(labPath string, newPath string) (error) {
 /*
 EditLab edit an existing lab
 */
-func (c *EveNgClient) EditLab(labPath string, name string, version string, author string, description string) (error) {
+func (c *EveNgClient) EditLab(labPath string, name string, version string, author string, description string) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -201,8 +197,6 @@ func (c *EveNgClient) GetLabTopology(labPath string) (TopologyPoints, error) {
 	}
 	return topologyPoints, nil
 }
-
-
 
 //---------- Node operations ----------//
 
@@ -284,7 +278,7 @@ func (c *EveNgClient) GetLabNode(labPath string, nodeId int) (Node, error) {
 /*
 StartLabNodes starts all nodes in a lab
 */
-func (c *EveNgClient) StartLabNodes(labPath string) (error) {
+func (c *EveNgClient) StartLabNodes(labPath string) error {
 	nodes, err := c.GetLabNodes(labPath)
 	if err != nil {
 		return errors.Wrap(err, "error during http get request")
@@ -303,7 +297,7 @@ func (c *EveNgClient) StartLabNodes(labPath string) (error) {
 /*
 StartLabNode starts a specific node in a lab
 */
-func (c *EveNgClient) StartLabNode(labPath string, nodeId int) (error) {
+func (c *EveNgClient) StartLabNode(labPath string, nodeId int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -317,7 +311,7 @@ func (c *EveNgClient) StartLabNode(labPath string, nodeId int) (error) {
 /*
 StopLabNodes stops all nodes in a lab
 */
-func (c *EveNgClient) StopLabNodes(labPath string) (error) {
+func (c *EveNgClient) StopLabNodes(labPath string) error {
 	nodes, err := c.GetLabNodes(labPath)
 	if err != nil {
 		return errors.Wrap(err, "error during http get request")
@@ -336,7 +330,7 @@ func (c *EveNgClient) StopLabNodes(labPath string) (error) {
 /*
 StopLabNode stops a specific node in a lab
 */
-func (c *EveNgClient) StopLabNode(labPath string, nodeId int) (error) {
+func (c *EveNgClient) StopLabNode(labPath string, nodeId int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -350,7 +344,7 @@ func (c *EveNgClient) StopLabNode(labPath string, nodeId int) (error) {
 /*
 WipeLabNodes wipes all nodes in a lab
 */
-func (c *EveNgClient) WipeLabNodes(labPath string) (error) {
+func (c *EveNgClient) WipeLabNodes(labPath string) error {
 	nodes, err := c.GetLabNodes(labPath)
 	if err != nil {
 		return errors.Wrap(err, "error during http get request")
@@ -369,7 +363,7 @@ func (c *EveNgClient) WipeLabNodes(labPath string) (error) {
 /*
 WipeLabNode wipes a specific node in a lab
 */
-func (c *EveNgClient) WipeLabNode(labPath string, nodeId int) (error) {
+func (c *EveNgClient) WipeLabNode(labPath string, nodeId int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -383,7 +377,7 @@ func (c *EveNgClient) WipeLabNode(labPath string, nodeId int) (error) {
 /*
 ExportLabNodes exports all nodes in a lab
 */
-func (c *EveNgClient) ExportLabNodes(labPath string) (error) {
+func (c *EveNgClient) ExportLabNodes(labPath string) error {
 	nodes, err := c.GetLabNodes(labPath)
 	if err != nil {
 		return errors.Wrap(err, "error during http get request")
@@ -402,7 +396,7 @@ func (c *EveNgClient) ExportLabNodes(labPath string) (error) {
 /*
 ExportLabNode exports a specific node in a lab
 */
-func (c *EveNgClient) ExportLabNode(labPath string, nodeId int) (error) {
+func (c *EveNgClient) ExportLabNode(labPath string, nodeId int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -414,14 +408,12 @@ func (c *EveNgClient) ExportLabNode(labPath string, nodeId int) (error) {
 	return err
 }
 
-
-
 //---------- Node Interface operations ----------//
 
 /*
 ConnectLabNodeInterfaceToNetwork connects the given node interface to a network
 */
-func (c *EveNgClient) ConnectLabNodeInterfaceToNetwork(labPath string, nodeId int, interfaceId int, networkId int) (error) {
+func (c *EveNgClient) ConnectLabNodeInterfaceToNetwork(labPath string, nodeId int, interfaceId int, networkId int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -451,8 +443,6 @@ func (c *EveNgClient) GetLabNodeInterfaces(labPath string, nodeId int) (Interfac
 	}
 	return interfaces, nil
 }
-
-
 
 //---------- Node Template operations ----------//
 
@@ -494,8 +484,6 @@ func (c *EveNgClient) GetNodeTemplate(templateName string) (Template, error) {
 	return template, nil
 }
 
-
-
 //---------- Network operations ----------//
 
 /*
@@ -522,7 +510,7 @@ func (c *EveNgClient) AddLabNetwork(labPath string, networkType string, networkN
 /*
 RemoveLabNetwork removes a given network
 */
-func (c *EveNgClient) RemoveLabNetwork(labPath string, networkId int) (error) {
+func (c *EveNgClient) RemoveLabNetwork(labPath string, networkId int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -592,13 +580,12 @@ func (c *EveNgClient) GetNetworkTypes() (NetworkTypes, error) {
 	return networkTypes, nil
 }
 
-
 //---------- User operations ----------//
 
 /*
 AddUser adds a new user
 */
-func (c *EveNgClient) AddUser(username string, name string, email string, password string, role string, expiration string, dateStart string, extAuth string, pod int, pexpiration string, cpu int, ram int) (error) {
+func (c *EveNgClient) AddUser(username string, name string, email string, password string, role string, expiration string, dateStart string, extAuth string, pod int, pexpiration string, cpu int, ram int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -612,7 +599,7 @@ func (c *EveNgClient) AddUser(username string, name string, email string, passwo
 /*
 RemoveUser removes an existing user
 */
-func (c *EveNgClient) RemoveUser(username string) (error) {
+func (c *EveNgClient) RemoveUser(username string) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -626,7 +613,7 @@ func (c *EveNgClient) RemoveUser(username string) (error) {
 /*
 EditUser edits an existing user
 */
-func (c *EveNgClient) EditUser(username string, name string, email string, password string, role string, expiration string, pod int, pexpiration string) (error) {
+func (c *EveNgClient) EditUser(username string, name string, email string, password string, role string, expiration string, pod int, pexpiration string) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -694,14 +681,12 @@ func (c *EveNgClient) GetUserRoles() (UserRoles, error) {
 	return userRoles, nil
 }
 
-
-
 //---------- Folder operations ----------//
 
 /*
 AddFolder adds a new folder to the given directory
 */
-func (c *EveNgClient) AddFolder(path string, folderName string) (error) {
+func (c *EveNgClient) AddFolder(path string, folderName string) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -715,7 +700,7 @@ func (c *EveNgClient) AddFolder(path string, folderName string) (error) {
 /*
 MoveFolder moves/renames an existing folder
 */
-func (c *EveNgClient) MoveFolder(oldPath string, newPath string) (error) {
+func (c *EveNgClient) MoveFolder(oldPath string, newPath string) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -729,7 +714,7 @@ func (c *EveNgClient) MoveFolder(oldPath string, newPath string) (error) {
 /*
 RemoveFolder deletes an existing folder
 */
-func (c *EveNgClient) RemoveFolder(path string) (error) {
+func (c *EveNgClient) RemoveFolder(path string) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -762,7 +747,7 @@ func (c *EveNgClient) getFolderContents(folder string) (FolderContents, error) {
 /*
 GetLabFiles returns all lab files in a given path
 */
-func (c * EveNgClient) GetLabFiles(path string) (LabFiles, error) {
+func (c *EveNgClient) GetLabFiles(path string) (LabFiles, error) {
 	folderContents, err := c.getFolderContents(path)
 	if err != nil {
 		return LabFiles{}, errors.Wrap(err, "error while retrieving lab files for given path")
@@ -774,7 +759,7 @@ func (c * EveNgClient) GetLabFiles(path string) (LabFiles, error) {
 /*
 GetFolders returns all folders in a given path
 */
-func (c * EveNgClient) GetFolders(path string) (Folders, error) {
+func (c *EveNgClient) GetFolders(path string) (Folders, error) {
 	folderContents, err := c.getFolderContents(path)
 	if err != nil {
 		return Folders{}, errors.Wrap(err, "error while retrieving folder for given path")
