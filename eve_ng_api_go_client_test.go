@@ -1,4 +1,4 @@
-package eve_ng_client
+package eveNgClient
 
 import (
 	"github.com/spf13/viper"

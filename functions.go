@@ -1,4 +1,4 @@
-package eve_ng_client
+package eveNgClient
 
 import (
 	"github.com/go-resty/resty"
@@ -209,11 +209,11 @@ func (c *EveNgClient) GetLabTopology(labPath string) (TopologyPoints, error) {
 /*
 AddLabNode add a new node to a lab
 */
-func (c *EveNgClient) AddLabNode(labPath string, node_type string, template string, config string, delay int, icon string, image string, name string, left string, top string, ram string, console string, cpu int, cpuLimit string, ethernet int, firstmac string, rdp_user string, rdp_password string, uuid string, count int) (int, error) {
+func (c *EveNgClient) AddLabNode(labPath string, nodeType string, template string, config string, delay int, icon string, image string, name string, left string, top string, ram string, console string, cpu int, cpuLimit string, ethernet int, firstMac string, rdpUser string, rdpPassword string, uuid string, count int) (int, error) {
 	if !c.isValid() {
 		return 0, &NotValidError{}
 	}
-	response, err := c.request("POST", endpointPath+"labs/"+labPath+"/nodes", `{"path":"`+labPath+`","type":"`+node_type+`","template":"`+template+`","config":"`+config+`","delay":"`+strconv.Itoa(delay)+`","icon":"`+icon+`","image":"`+image+`","name":"`+name+`","left":"`+left+`","top":"`+top+`","ram":"`+ram+`","console":"`+console+`","cpu":"`+strconv.Itoa(cpu)+`","cpulimit":"`+cpuLimit+`","fistmac":"`+firstmac+`","ethernet":"`+strconv.Itoa(ethernet)+`","rdp_user":"`+rdp_user+`","rdp_password":"`+rdp_password+`","uuid":"`+uuid+`","count":"`+strconv.Itoa(count)+`"}`, nil, nil)
+	response, err := c.request("POST", endpointPath+"labs/"+labPath+"/nodes", `{"path":"`+labPath+`","type":"`+nodeType+`","template":"`+template+`","config":"`+config+`","delay":"`+strconv.Itoa(delay)+`","icon":"`+icon+`","image":"`+image+`","name":"`+name+`","left":"`+left+`","top":"`+top+`","ram":"`+ram+`","console":"`+console+`","cpu":"`+strconv.Itoa(cpu)+`","cpulimit":"`+cpuLimit+`","fistmac":"`+firstMac+`","ethernet":"`+strconv.Itoa(ethernet)+`","rdp_user":"`+rdpUser+`","rdp_password":"`+rdpPassword+`","uuid":"`+uuid+`","count":"`+strconv.Itoa(count)+`"}`, nil, nil)
 	if err != nil {
 		return 0, errors.Wrap(err, "error during http get request")
 	}
@@ -727,7 +727,7 @@ func (c *EveNgClient) MoveFolder(oldPath string, newPath string) (error) {
 }
 
 /*
-DeleteFolder deletes an existing folder
+RemoveFolder deletes an existing folder
 */
 func (c *EveNgClient) RemoveFolder(path string) (error) {
 	if !c.isValid() {

@@ -1,4 +1,4 @@
-package eve_ng_client
+package eveNgClient
 
 /*
 BasicResponse contains the data returned by the api in case of a get
@@ -54,7 +54,7 @@ type Folder struct {
 }
 
 /*
-Labs is a list of labs
+LabFiles is a list of labfiles
  */
 type LabFiles []LabFile
 
@@ -149,7 +149,6 @@ type Node struct {
 	Configlist		interface{}		`json:"configlist"`
 }
 
-//type Configlist map[string]string
 /*
 Nodes an array of Nodes
 */
@@ -185,7 +184,7 @@ type Interface struct {
 }
 
 /*
-Topologies an array of network topology points
+TopologyPoints an array of network topology points
 */
 type TopologyPoints []Topology
 

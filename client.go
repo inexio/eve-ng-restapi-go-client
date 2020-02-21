@@ -1,4 +1,4 @@
-package eve_ng_client
+package eveNgClient
 
 import (
 	"encoding/json"
@@ -227,7 +227,7 @@ func urlEscapePath(unescaped string) string {
 }
 
 /*
-jsonEscape - Escpaes special characters of a given json string
+jsonEscape - Escapes special characters of a given json string
  */
 func jsonEscape(unescaped string) (string, error) {
 	escaped, err := json.Marshal(unescaped)
