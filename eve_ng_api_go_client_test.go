@@ -546,7 +546,7 @@ func TestEveNgClient_Folders(t *testing.T) {
 	foldersInOldFolderBeforeMove, err := eveNgClient.GetFolders("")
 	assert.NoError(t, err, "Error during GetFolders operation")
 	foldersInNewFolderBeforeMove, err := eveNgClient.GetFolders(newFolderName)
-	assert.NoError(t, err, "Error during GetFolder operation")
+	assert.NoError(t, err, "Error during GetFolders operation")
 	err = eveNgClient.MoveFolder(folderName, "/"+newFolderName+"/"+folderName)
 	if assert.NoError(t, err, "Error during MoveFolder operation") {
 		foldersInOldFolderAfterMove, err := eveNgClient.GetFolders("")
@@ -560,7 +560,9 @@ func TestEveNgClient_Folders(t *testing.T) {
 	}
 	defer func() {
 		foldersInOldFolderBefore2ndMove, err := eveNgClient.GetFolders("")
+		assert.NoError(t, err, "Error during GetFolders operation")
 		foldersInNewFolderBefore2ndMove, err := eveNgClient.GetFolders(newFolderName)
+		assert.NoError(t, err, "Error during GetFolders operation")
 		err = eveNgClient.MoveFolder(newFolderName+"/"+folderName, "/"+folderName)
 		if assert.NoError(t, err, "Error during MoveFolder operation") {
 			foldersInOldFolderAfter2ndMove, err := eveNgClient.GetFolders("")
