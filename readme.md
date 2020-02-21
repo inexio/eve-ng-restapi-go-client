@@ -169,5 +169,3 @@ If you want to make any contributions make sure your go report does match up wit
 When you contribute make sure your code is conform to the **uber-go** coding style.
 
 Happy Coding!
-
-
