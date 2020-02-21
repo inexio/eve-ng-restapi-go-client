@@ -1,6 +1,6 @@
 # eve-ng-restapi-go-client
 
-
+[![Go Report Card](https://goreportcard.com/badge/github.com/inexio/eve-ng-restapi-go-client)](https://goreportcard.com/report/github.com/inexio/eve-ng-restapi-go-client)
 
 ## Description
 
