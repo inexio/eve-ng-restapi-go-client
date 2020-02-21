@@ -491,6 +491,7 @@ func TestEveNgClient_Folders(t *testing.T) {
 	folderName := "FolderTesting"
 	foundFolders := 0
 
+	//Add a new folder
 	err = eveNgClient.AddFolder(folderPath, folderName)
 	if assert.NoError(t, err, "Error during AddFolderOperation") {
 		foldersAfterAdd, err := eveNgClient.GetFolders("")
@@ -519,6 +520,7 @@ func TestEveNgClient_Folders(t *testing.T) {
 	newFolderName := "FolderTestingMove"
 	newFoundFolders := 0
 
+	//Add a second new folder
 	err = eveNgClient.AddFolder(newFolderPath, newFolderName)
 	if assert.NoError(t, err, "Error during AddFolderOperation") {
 		foldersAfterAdd, err := eveNgClient.GetFolders("")
@@ -543,6 +545,7 @@ func TestEveNgClient_Folders(t *testing.T) {
 		}
 	}()
 
+	//Move folder and check if it worked correctly
 	foldersInOldFolderBeforeMove, err := eveNgClient.GetFolders("")
 	assert.NoError(t, err, "Error during GetFolders operation")
 	foldersInNewFolderBeforeMove, err := eveNgClient.GetFolders(newFolderName)
