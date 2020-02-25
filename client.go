@@ -2,7 +2,7 @@ package evengclient
 
 import (
 	"encoding/json"
-	"github.com/go-resty/resty"
+	"github.com/go-resty/resty/v2"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
 	"log"

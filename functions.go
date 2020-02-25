@@ -1,7 +1,7 @@
 package evengclient
 
 import (
-	"github.com/go-resty/resty"
+	"github.com/go-resty/resty/v2"
 	"github.com/pkg/errors"
 	"strconv"
 )
