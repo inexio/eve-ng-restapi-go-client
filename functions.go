@@ -203,11 +203,11 @@ func (c *EveNgClient) GetLabTopology(labPath string) (TopologyPoints, error) {
 /*
 AddLabNode add a new node to a lab
 */
-func (c *EveNgClient) AddLabNode(labPath string, nodeType string, template string, config string, delay int, icon string, image string, name string, left string, top string, ram string, console string, cpu int, cpuLimit string, ethernet int, firstMac string, rdpUser string, rdpPassword string, uuid string, count int) (int, error) {
+func (c *EveNgClient) AddLabNode(labPath string, nodeType string, template string, config string, delay int, icon string, image string, name string, left int, top int, ram int, console string, cpu int, cpuLimit string, ethernet int, firstMac string, rdpUser string, rdpPassword string, uuid string, count int) (int, error) {
 	if !c.isValid() {
 		return 0, &NotValidError{}
 	}
-	response, err := c.request("POST", endpointPath+"labs/"+labPath+"/nodes", `{"path":"`+labPath+`","type":"`+nodeType+`","template":"`+template+`","config":"`+config+`","delay":"`+strconv.Itoa(delay)+`","icon":"`+icon+`","image":"`+image+`","name":"`+name+`","left":"`+left+`","top":"`+top+`","ram":"`+ram+`","console":"`+console+`","cpu":"`+strconv.Itoa(cpu)+`","cpulimit":"`+cpuLimit+`","fistmac":"`+firstMac+`","ethernet":"`+strconv.Itoa(ethernet)+`","rdp_user":"`+rdpUser+`","rdp_password":"`+rdpPassword+`","uuid":"`+uuid+`","count":"`+strconv.Itoa(count)+`"}`, nil, nil)
+	response, err := c.request("POST", endpointPath+"labs/"+labPath+"/nodes", `{"path":"`+labPath+`","type":"`+nodeType+`","template":"`+template+`","config":"`+config+`","delay":"`+strconv.Itoa(delay)+`","icon":"`+icon+`","image":"`+image+`","name":"`+name+`","left":"`+strconv.Itoa(left)+`","top":"`+strconv.Itoa(top)+`","ram":"`+strconv.Itoa(ram)+`","console":"`+console+`","cpu":"`+strconv.Itoa(cpu)+`","cpulimit":"`+cpuLimit+`","fistmac":"`+firstMac+`","ethernet":"`+strconv.Itoa(ethernet)+`","rdp_user":"`+rdpUser+`","rdp_password":"`+rdpPassword+`","uuid":"`+uuid+`","count":"`+strconv.Itoa(count)+`"}`, nil, nil)
 	if err != nil {
 		return 0, errors.Wrap(err, "error during http get request")
 	}
@@ -489,11 +489,11 @@ func (c *EveNgClient) GetNodeTemplate(templateName string) (Template, error) {
 /*
 AddLabNetwork add a new network to a lab
 */
-func (c *EveNgClient) AddLabNetwork(labPath string, networkType string, networkName string, left string, top string, visibility int, postfix int) (int, error) {
+func (c *EveNgClient) AddLabNetwork(labPath string, networkType string, networkName string, left int, top int, visibility int, postfix int) (int, error) {
 	if !c.isValid() {
 		return 0, &NotValidError{}
 	}
-	response, err := c.request("POST", endpointPath+"labs/"+labPath+"/networks", `{"type":"`+networkType+`","name":"`+networkName+`","left":"`+left+`","top":"`+top+`","visibility":"`+strconv.Itoa(visibility)+`","postfix":"`+strconv.Itoa(postfix)+`"}`, nil, nil)
+	response, err := c.request("POST", endpointPath+"labs/"+labPath+"/networks", `{"type":"`+networkType+`","name":"`+networkName+`","left":"`+strconv.Itoa(left)+`","top":"`+strconv.Itoa(top)+`","visibility":"`+strconv.Itoa(visibility)+`","postfix":"`+strconv.Itoa(postfix)+`"}`, nil, nil)
 	if err != nil {
 		return 0, errors.Wrap(err, "error during http get request")
 	}

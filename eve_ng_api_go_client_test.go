@@ -675,7 +675,7 @@ func TestEveNgClient_Labs(t *testing.T) {
 	//Add, Get, Remove network test functions
 	foundNetworks := 0
 
-	networkId, err := eveNgClient.AddLabNetwork(labPath, "bridge", "TestNetwork", "69", "420", 1, 0)
+	networkId, err := eveNgClient.AddLabNetwork(labPath, "bridge", "TestNetwork", 69, 420, 1, 0)
 	if assert.NoError(t, err, "Error during AddLabNetwork operation") {
 		labNetworks, err := eveNgClient.GetLabNetworks(labPath)
 		if assert.NoError(t, err, "Error during GetLabNetworks operation") {
@@ -684,17 +684,16 @@ func TestEveNgClient_Labs(t *testing.T) {
 				for _, labNetwork := range labNetworks {
 					labNetworkDetails, err := eveNgClient.GetLabNetwork(labPath, labNetwork.Id)
 					if !assert.NoError(t, err, "Error during GetLabNetwork operation") {
-						assert.NotNil(t, labNetworkDetails.Id, "Network id is nil")
 						assert.NotNil(t, labNetworkDetails.Count, "Network count is nil")
-						assert.NotEmpty(t, labNetworkDetails.Name, "Network name is empty")
-						assert.NotEmpty(t, labNetworkDetails.Type, "Network type is empty")
-						assert.NotNil(t, labNetworkDetails.Top, "Network top is nil")
-						assert.NotNil(t, labNetworkDetails.Left, "Network left is nil")
+						assert.Equal(t, "TestNetwork", labNetworkDetails.Name, "Network name is empty")
+						assert.Equal(t, "bridge", labNetworkDetails.Type, "Network type is empty")
+						assert.Equal(t, "420", labNetworkDetails.Top, "Network top is nil")
+						assert.Equal(t, "69", labNetworkDetails.Left, "Network left is nil")
 						assert.NotEmpty(t, labNetworkDetails.Style, "Network style is empty")
 						assert.NotEmpty(t, labNetworkDetails.Linkstyle, "Network linkstyle is empty")
 						assert.NotNil(t, labNetworkDetails.Color, "Network color is nil")
 						assert.NotNil(t, labNetworkDetails.Label, "Network label is nil")
-						assert.NotNil(t, labNetworkDetails.Visibility, "Network visibility is nil")
+						assert.Equal(t, 1, labNetworkDetails.Visibility, "Network visibility is nil")
 					}
 					break
 				}
@@ -802,7 +801,7 @@ func TestEveNgClient_Nodes(t *testing.T) {
 	}()
 
 	//Add a network to the lab
-	networkId, err := eveNgClient.AddLabNetwork(labPath, "nat0", "TestNetwork", "69", "420", 1, 0)
+	networkId, err := eveNgClient.AddLabNetwork(labPath, "nat0", "TestNetwork", 69, 420, 1, 0)
 	defer func() {
 		labNetworks, _ := eveNgClient.GetLabNetworks(labPath)
 		for _, labNetwork := range labNetworks {
@@ -813,7 +812,7 @@ func TestEveNgClient_Nodes(t *testing.T) {
 	//Add nodes to the lab
 	foundNodes := 0
 
-	nodeId, err := eveNgClient.AddLabNode(labPath, "qemu", "veos", "0", 0, "AristaSW.png", "veos-4.16.14M", "vEOS", "404", "227", "512", "telnet", 1, "undefined", 4, "", "", "", "", 1)
+	nodeId, err := eveNgClient.AddLabNode(labPath, "qemu", "veos", "0", 0, "AristaSW.png", "veos-4.16.14M", "vEOS", 404, 227, 512, "telnet", 1, "undefined", 4, "", "", "", "", 1)
 	if assert.NoError(t, err, "Error during AddLabNode operation") {
 		labNodesBeforeRemove, err := eveNgClient.GetLabNodes(labPath)
 		foundNodes = len(labNodesBeforeRemove)
@@ -822,23 +821,22 @@ func TestEveNgClient_Nodes(t *testing.T) {
 				for _, labNode := range labNodesBeforeRemove {
 					labNodeDetails, err := eveNgClient.GetLabNode(labPath, labNode.Id)
 					if assert.NoError(t, err, "Error during GetLabNode operation") {
-						assert.NotNil(t, labNodeDetails.Id, "Node id is nil")
-						assert.NotEmpty(t, labNodeDetails.Uuid, "Node uuid is empty")
-						assert.NotEmpty(t, labNodeDetails.Name, "Node name is empty")
-						assert.NotEmpty(t, labNodeDetails.Type, "Node type is empty")
-						assert.NotNil(t, labNodeDetails.Status, "Node status is nil")
-						assert.NotEmpty(t, labNodeDetails.Template, "Node template is empty")
-						assert.NotNil(t, labNodeDetails.Cpu, "Node cpu is nil")
-						assert.NotNil(t, labNodeDetails.Ram, "Node ram is nil")
-						assert.NotEmpty(t, labNodeDetails.Image, "Node image is empty")
-						assert.NotEmpty(t, labNodeDetails.Console, "Node console is empty")
-						assert.NotNil(t, labNodeDetails.Ethernet, "Node ethernet is nil")
-						assert.NotNil(t, labNodeDetails.Delay, "Node Delay is nil")
-						assert.NotEmpty(t, labNodeDetails.Icon, "Node icon is empty")
+						assert.NotEmpty(t, labNodeDetails.Uuid, "Node uuid does is empty")
+						assert.Equal(t, "vEOS", labNodeDetails.Name, "Node name does not match expected value")
+						assert.Equal(t, "qemu", labNodeDetails.Type, "Node type does not match expected value")
+						assert.Equal(t, 0, labNodeDetails.Status, "Node status does not match expected value")
+						assert.Equal(t, "veos", labNodeDetails.Template, "Node template does not match expected value")
+						assert.Equal(t, 1, labNodeDetails.Cpu, "Node cpu does not match expected value")
+						assert.Equal(t, 512, labNodeDetails.Ram, "Node ram does not match expected value")
+						assert.Equal(t, "veos-4.16.14M", labNodeDetails.Image, "Node image does not match expected value")
+						assert.Equal(t, "telnet", labNodeDetails.Console, "Node console does not match expected value")
+						assert.Equal(t, 4, labNodeDetails.Ethernet, "Node ethernet does not match expected value")
+						assert.Equal(t, 0, labNodeDetails.Delay, "Node Delay does not match expected value")
+						assert.Equal(t, "AristaSW.png", labNodeDetails.Icon, "Node icon does not match expected value")
 						assert.NotEmpty(t, labNodeDetails.Url, "Node url is empty")
-						assert.NotNil(t, labNodeDetails.Top, "Node top is nil")
-						assert.NotNil(t, labNodeDetails.Left, "Node left is nil")
-						assert.NotEmpty(t, labNodeDetails.Config, "Node Config is empty")
+						assert.Equal(t, 227, labNodeDetails.Top, "Node top does not match expected value")
+						assert.Equal(t, 404, labNodeDetails.Left, "Node left does not match expected value")
+						assert.Equal(t, "0", labNodeDetails.Config, "Node Config does not match expected value")
 						assert.NotEmpty(t, labNodeDetails.Firstmac, "Node firstmac is empty")
 					}
 					break

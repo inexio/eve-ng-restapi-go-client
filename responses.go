@@ -83,7 +83,6 @@ type Lab struct {
 Network contains information about a network
 */
 type Network struct {
-	Id         int    `json:"id"`
 	Count      int    `json:"count"`
 	Name       string `json:"name"`
 	Type       string `json:"type"`
@@ -97,9 +96,17 @@ type Network struct {
 }
 
 /*
+NetworkWithId contains information about a network including its id
+*/
+type NetworkWithId struct {
+	Id int `json:"id"`
+	Network
+}
+
+/*
 Networks an array of Networks
 */
-type Networks map[string]Network
+type Networks map[string]NetworkWithId
 
 /*
 NetworkTypes is an array of network types
@@ -128,7 +135,6 @@ type SerialEndpoints map[string]string
 Node contains information about a node
 */
 type Node struct {
-	Id         int         `json:"id"`
 	Uuid       string      `json:"uuid"`
 	Name       string      `json:"name"`
 	Type       string      `json:"type"`
@@ -150,9 +156,17 @@ type Node struct {
 }
 
 /*
+NodeWithId contains information about a node including its id
+*/
+type NodeWithId struct {
+	Id int `json:"id"`
+	Node
+}
+
+/*
 Nodes an array of Nodes
 */
-type Nodes map[string]Node
+type Nodes map[string]NodeWithId
 
 /*
 Interfaces contains information about ethernet and serial interfaces
