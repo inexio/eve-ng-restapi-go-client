@@ -180,9 +180,9 @@ func (c *EveNgClient) GetLab(labPath string) (Lab, error) {
 }
 
 /*
-GetLabTopology retrieves topology for given lab
+GetTopology retrieves topology for given lab
 */
-func (c *EveNgClient) GetLabTopology(labPath string) (TopologyPoints, error) {
+func (c *EveNgClient) GetTopology(labPath string) (TopologyPoints, error) {
 	if !c.isValid() {
 		return nil, &NotValidError{}
 	}
@@ -201,9 +201,9 @@ func (c *EveNgClient) GetLabTopology(labPath string) (TopologyPoints, error) {
 //---------- Node operations ----------//
 
 /*
-AddLabNode add a new node to a lab
+AddNode add a new node to a lab
 */
-func (c *EveNgClient) AddLabNode(labPath string, nodeType string, template string, config string, delay int, icon string, image string, name string, left int, top int, ram int, console string, cpu int, cpuLimit string, ethernet int, firstMac string, rdpUser string, rdpPassword string, uuid string, count int) (int, error) {
+func (c *EveNgClient) AddNode(labPath string, nodeType string, template string, config string, delay int, icon string, image string, name string, left int, top int, ram int, console string, cpu int, cpuLimit string, ethernet int, firstMac string, rdpUser string, rdpPassword string, uuid string, count int) (int, error) {
 	if !c.isValid() {
 		return 0, &NotValidError{}
 	}
@@ -222,9 +222,9 @@ func (c *EveNgClient) AddLabNode(labPath string, nodeType string, template strin
 }
 
 /*
-RemoveLabNode removes a node from a lab
+RemoveNode removes a node from a lab
 */
-func (c *EveNgClient) RemoveLabNode(labPath string, nodeId int) error {
+func (c *EveNgClient) RemoveNode(labPath string, nodeId int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -238,9 +238,9 @@ func (c *EveNgClient) RemoveLabNode(labPath string, nodeId int) error {
 }
 
 /*
-GetLabNodes returns all nodes in a lab
+GetNodes returns all nodes in a lab
 */
-func (c *EveNgClient) GetLabNodes(labPath string) (Nodes, error) {
+func (c *EveNgClient) GetNodes(labPath string) (Nodes, error) {
 	if !c.isValid() {
 		return nil, &NotValidError{}
 	}
@@ -257,9 +257,9 @@ func (c *EveNgClient) GetLabNodes(labPath string) (Nodes, error) {
 }
 
 /*
-GetLabNode - Returns data for a specific lab node
+GetNode - Returns data for a specific lab node
 */
-func (c *EveNgClient) GetLabNode(labPath string, nodeId int) (Node, error) {
+func (c *EveNgClient) GetNode(labPath string, nodeId int) (Node, error) {
 	if !c.isValid() {
 		return Node{}, &NotValidError{}
 	}
@@ -276,16 +276,16 @@ func (c *EveNgClient) GetLabNode(labPath string, nodeId int) (Node, error) {
 }
 
 /*
-StartLabNodes starts all nodes in a lab
+StartNodes starts all nodes in a lab
 */
-func (c *EveNgClient) StartLabNodes(labPath string) error {
-	nodes, err := c.GetLabNodes(labPath)
+func (c *EveNgClient) StartNodes(labPath string) error {
+	nodes, err := c.GetNodes(labPath)
 	if err != nil {
 		return errors.Wrap(err, "error during http get request")
 	}
 
 	for _, node := range nodes {
-		err = c.StartLabNode(labPath, node.Id)
+		err = c.StartNode(labPath, node.Id)
 		if err != nil {
 			return errors.Wrap(err, "error during http get request")
 		}
@@ -295,9 +295,9 @@ func (c *EveNgClient) StartLabNodes(labPath string) error {
 }
 
 /*
-StartLabNode starts a specific node in a lab
+StartNode starts a specific node in a lab
 */
-func (c *EveNgClient) StartLabNode(labPath string, nodeId int) error {
+func (c *EveNgClient) StartNode(labPath string, nodeId int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -309,16 +309,16 @@ func (c *EveNgClient) StartLabNode(labPath string, nodeId int) error {
 }
 
 /*
-StopLabNodes stops all nodes in a lab
+StopNodes stops all nodes in a lab
 */
-func (c *EveNgClient) StopLabNodes(labPath string) error {
-	nodes, err := c.GetLabNodes(labPath)
+func (c *EveNgClient) StopNodes(labPath string) error {
+	nodes, err := c.GetNodes(labPath)
 	if err != nil {
 		return errors.Wrap(err, "error during http get request")
 	}
 
 	for _, node := range nodes {
-		err = c.StopLabNode(labPath, node.Id)
+		err = c.StopNode(labPath, node.Id)
 		if err != nil {
 			return errors.Wrap(err, "error during http get request")
 		}
@@ -328,9 +328,9 @@ func (c *EveNgClient) StopLabNodes(labPath string) error {
 }
 
 /*
-StopLabNode stops a specific node in a lab
+StopNode stops a specific node in a lab
 */
-func (c *EveNgClient) StopLabNode(labPath string, nodeId int) error {
+func (c *EveNgClient) StopNode(labPath string, nodeId int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -342,16 +342,16 @@ func (c *EveNgClient) StopLabNode(labPath string, nodeId int) error {
 }
 
 /*
-WipeLabNodes wipes all nodes in a lab
+WipeNodes wipes all nodes in a lab
 */
-func (c *EveNgClient) WipeLabNodes(labPath string) error {
-	nodes, err := c.GetLabNodes(labPath)
+func (c *EveNgClient) WipeNodes(labPath string) error {
+	nodes, err := c.GetNodes(labPath)
 	if err != nil {
 		return errors.Wrap(err, "error during http get request")
 	}
 
 	for _, node := range nodes {
-		err = c.WipeLabNode(labPath, node.Id)
+		err = c.WipeNode(labPath, node.Id)
 		if err != nil {
 			return errors.Wrap(err, "error during WipeLabNode")
 		}
@@ -361,9 +361,9 @@ func (c *EveNgClient) WipeLabNodes(labPath string) error {
 }
 
 /*
-WipeLabNode wipes a specific node in a lab
+WipeNode wipes a specific node in a lab
 */
-func (c *EveNgClient) WipeLabNode(labPath string, nodeId int) error {
+func (c *EveNgClient) WipeNode(labPath string, nodeId int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -375,16 +375,16 @@ func (c *EveNgClient) WipeLabNode(labPath string, nodeId int) error {
 }
 
 /*
-ExportLabNodes exports all nodes in a lab
+ExportNodes exports all nodes in a lab
 */
-func (c *EveNgClient) ExportLabNodes(labPath string) error {
-	nodes, err := c.GetLabNodes(labPath)
+func (c *EveNgClient) ExportNodes(labPath string) error {
+	nodes, err := c.GetNodes(labPath)
 	if err != nil {
 		return errors.Wrap(err, "error during http get request")
 	}
 
 	for _, node := range nodes {
-		err = c.ExportLabNode(labPath, node.Id)
+		err = c.ExportNode(labPath, node.Id)
 		if err != nil {
 			return errors.Wrap(err, "error during WipeLabNode")
 		}
@@ -394,9 +394,9 @@ func (c *EveNgClient) ExportLabNodes(labPath string) error {
 }
 
 /*
-ExportLabNode exports a specific node in a lab
+ExportNode exports a specific node in a lab
 */
-func (c *EveNgClient) ExportLabNode(labPath string, nodeId int) error {
+func (c *EveNgClient) ExportNode(labPath string, nodeId int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -411,9 +411,9 @@ func (c *EveNgClient) ExportLabNode(labPath string, nodeId int) error {
 //---------- Node Interface operations ----------//
 
 /*
-ConnectLabNodeInterfaceToNetwork connects the given node interface to a network
+ConnectNodeInterfaceToNetwork connects the given node interface to a network
 */
-func (c *EveNgClient) ConnectLabNodeInterfaceToNetwork(labPath string, nodeId int, interfaceId int, networkId int) error {
+func (c *EveNgClient) ConnectNodeInterfaceToNetwork(labPath string, nodeId int, interfaceId int, networkId int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -426,9 +426,9 @@ func (c *EveNgClient) ConnectLabNodeInterfaceToNetwork(labPath string, nodeId in
 }
 
 /*
-GetLabNodeInterfaces returns all interfaces for a specific lab node
+GetNodeInterfaces returns all interfaces for a specific lab node
 */
-func (c *EveNgClient) GetLabNodeInterfaces(labPath string, nodeId int) (Interfaces, error) {
+func (c *EveNgClient) GetNodeInterfaces(labPath string, nodeId int) (Interfaces, error) {
 	if !c.isValid() {
 		return Interfaces{}, &NotValidError{}
 	}
@@ -487,9 +487,9 @@ func (c *EveNgClient) GetNodeTemplate(templateName string) (Template, error) {
 //---------- Network operations ----------//
 
 /*
-AddLabNetwork add a new network to a lab
+AddNetwork add a new network to a lab
 */
-func (c *EveNgClient) AddLabNetwork(labPath string, networkType string, networkName string, left int, top int, visibility int, postfix int) (int, error) {
+func (c *EveNgClient) AddNetwork(labPath string, networkType string, networkName string, left int, top int, visibility int, postfix int) (int, error) {
 	if !c.isValid() {
 		return 0, &NotValidError{}
 	}
@@ -508,9 +508,9 @@ func (c *EveNgClient) AddLabNetwork(labPath string, networkType string, networkN
 }
 
 /*
-RemoveLabNetwork removes a given network
+RemoveNetwork removes a given network
 */
-func (c *EveNgClient) RemoveLabNetwork(labPath string, networkId int) error {
+func (c *EveNgClient) RemoveNetwork(labPath string, networkId int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -524,9 +524,9 @@ func (c *EveNgClient) RemoveLabNetwork(labPath string, networkId int) error {
 }
 
 /*
-GetLabNetworks returns a list of all networks configured in a lab
+GetNetworks returns a list of all networks configured in a lab
 */
-func (c *EveNgClient) GetLabNetworks(labPath string) (Networks, error) {
+func (c *EveNgClient) GetNetworks(labPath string) (Networks, error) {
 	if !c.isValid() {
 		return nil, &NotValidError{}
 	}
@@ -543,9 +543,9 @@ func (c *EveNgClient) GetLabNetworks(labPath string) (Networks, error) {
 }
 
 /*
-GetLabNetwork returns data for given network id for lab
+GetNetwork returns data for given network id for lab
 */
-func (c *EveNgClient) GetLabNetwork(labPath string, networkId int) (Network, error) {
+func (c *EveNgClient) GetNetwork(labPath string, networkId int) (Network, error) {
 	if !c.isValid() {
 		return Network{}, &NotValidError{}
 	}

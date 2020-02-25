@@ -680,14 +680,14 @@ func TestEveNgClient_Labs(t *testing.T) {
 	//Add, Get, Remove network test functions
 	foundNetworks := 0
 
-	networkId, err := eveNgClient.AddLabNetwork(labPath, "bridge", "TestNetwork", 69, 420, 1, 0)
+	networkId, err := eveNgClient.AddNetwork(labPath, "bridge", "TestNetwork", 69, 420, 1, 0)
 	if assert.NoError(t, err, "Error during AddLabNetwork operation") {
-		labNetworks, err := eveNgClient.GetLabNetworks(labPath)
+		labNetworks, err := eveNgClient.GetNetworks(labPath)
 		if assert.NoError(t, err, "Error during GetLabNetworks operation") {
 			if assert.True(t, len(labNetworks) > 0, "No lab networks found during GetLabNetworks operation") {
 				foundNetworks = len(labNetworks)
 				for _, labNetwork := range labNetworks {
-					labNetworkDetails, err := eveNgClient.GetLabNetwork(labPath, labNetwork.Id)
+					labNetworkDetails, err := eveNgClient.GetNetwork(labPath, labNetwork.Id)
 					if !assert.NoError(t, err, "Error during GetLabNetwork operation") {
 						assert.NotNil(t, labNetworkDetails.Count, "Network count is nil")
 						assert.Equal(t, "TestNetwork", labNetworkDetails.Name, "Network name is empty")
@@ -706,9 +706,9 @@ func TestEveNgClient_Labs(t *testing.T) {
 		}
 	}
 	defer func() {
-		err = eveNgClient.RemoveLabNetwork(labPath, networkId)
+		err = eveNgClient.RemoveNetwork(labPath, networkId)
 		if assert.NoError(t, err, "Error during RemoveLabNetwork operation") {
-			labNetworks, err := eveNgClient.GetLabNetworks(labPath)
+			labNetworks, err := eveNgClient.GetNetworks(labPath)
 			if assert.NoError(t, err, "Error during GetLabNetworks operation") {
 				assert.Less(t, len(labNetworks), foundNetworks, "Network has not been removed correctly")
 			}
@@ -806,25 +806,25 @@ func TestEveNgClient_Nodes(t *testing.T) {
 	}()
 
 	//Add a network to the lab
-	networkId, err := eveNgClient.AddLabNetwork(labPath, "nat0", "TestNetwork", 69, 420, 1, 0)
+	networkId, err := eveNgClient.AddNetwork(labPath, "nat0", "TestNetwork", 69, 420, 1, 0)
 	defer func() {
-		labNetworks, _ := eveNgClient.GetLabNetworks(labPath)
+		labNetworks, _ := eveNgClient.GetNetworks(labPath)
 		for _, labNetwork := range labNetworks {
-			err = eveNgClient.RemoveLabNetwork(labPath, labNetwork.Id)
+			err = eveNgClient.RemoveNetwork(labPath, labNetwork.Id)
 		}
 	}()
 
 	//Add nodes to the lab
 	foundNodes := 0
 
-	nodeId, err := eveNgClient.AddLabNode(labPath, "qemu", "veos", "0", 0, "AristaSW.png", "veos-4.16.14M", "vEOS", 404, 227, 512, "telnet", 1, "undefined", 4, "", "", "", "", 1)
+	nodeId, err := eveNgClient.AddNode(labPath, "qemu", "veos", "0", 0, "AristaSW.png", "veos-4.16.14M", "vEOS", 404, 227, 512, "telnet", 1, "undefined", 4, "", "", "", "", 1)
 	if assert.NoError(t, err, "Error during AddLabNode operation") {
-		labNodesBeforeRemove, err := eveNgClient.GetLabNodes(labPath)
+		labNodesBeforeRemove, err := eveNgClient.GetNodes(labPath)
 		foundNodes = len(labNodesBeforeRemove)
 		if assert.NoError(t, err, "Error during GetLabNodes operation") {
 			if assert.True(t, len(labNodesBeforeRemove) > 0, "No lab nodes found during GetLabNodes operation") {
 				for _, labNode := range labNodesBeforeRemove {
-					labNodeDetails, err := eveNgClient.GetLabNode(labPath, labNode.Id)
+					labNodeDetails, err := eveNgClient.GetNode(labPath, labNode.Id)
 					if assert.NoError(t, err, "Error during GetLabNode operation") {
 						assert.NotEmpty(t, labNodeDetails.Uuid, "Node uuid does is empty")
 						assert.Equal(t, "vEOS", labNodeDetails.Name, "Node name does not match expected value")
@@ -850,9 +850,9 @@ func TestEveNgClient_Nodes(t *testing.T) {
 		}
 	}
 	defer func() {
-		err = eveNgClient.RemoveLabNode(labPath, nodeId)
+		err = eveNgClient.RemoveNode(labPath, nodeId)
 		if assert.NoError(t, err, "Error during RemoveLabNode operation") {
-			labNodesAfterRemove, err := eveNgClient.GetLabNodes(labPath)
+			labNodesAfterRemove, err := eveNgClient.GetNodes(labPath)
 			if assert.NoError(t, err, "Error during GetLabFiles operation") {
 				assert.Less(t, len(labNodesAfterRemove), foundNodes, "Node has not been removed correctly")
 			}
@@ -860,27 +860,27 @@ func TestEveNgClient_Nodes(t *testing.T) {
 	}()
 
 	//Start single node
-	err = eveNgClient.StartLabNode(labPath, nodeId)
+	err = eveNgClient.StartNode(labPath, nodeId)
 	if assert.NoError(t, err, "Error during StartLabNode operation") {
-		labNode, err := eveNgClient.GetLabNode(labPath, nodeId)
+		labNode, err := eveNgClient.GetNode(labPath, nodeId)
 		if assert.NoError(t, err, "Error during GetLabNode operation") {
 			assert.Equal(t, 2, labNode.Status, "Starting LabNode didn't work")
 		}
 	}
 
 	//Stop single node
-	err = eveNgClient.StopLabNode(labPath, nodeId)
+	err = eveNgClient.StopNode(labPath, nodeId)
 	if assert.NoError(t, err, "Error during StopLabNode operation") {
-		labNode, err := eveNgClient.GetLabNode(labPath, nodeId)
+		labNode, err := eveNgClient.GetNode(labPath, nodeId)
 		if assert.NoError(t, err, "Error during GetLabNode operation") {
 			assert.Equal(t, 0, labNode.Status, "Stopping LabNode didn't work")
 		}
 	}
 
 	//Start all nodes
-	err = eveNgClient.StartLabNodes(labPath)
+	err = eveNgClient.StartNodes(labPath)
 	if assert.NoError(t, err, "Error during StartLabNodes operation") {
-		labNodes, err := eveNgClient.GetLabNodes(labPath)
+		labNodes, err := eveNgClient.GetNodes(labPath)
 		if assert.NoError(t, err, "Error during GetLabNodes operation") {
 			for _, labNode := range labNodes {
 				assert.Equal(t, 2, labNode.Status, "Node "+strconv.Itoa(labNode.Id)+" wasn't started correctly")
@@ -889,9 +889,9 @@ func TestEveNgClient_Nodes(t *testing.T) {
 	}
 	defer func() {
 		//Stop all nodes after execution
-		err = eveNgClient.StopLabNodes(labPath)
+		err = eveNgClient.StopNodes(labPath)
 		if assert.NoError(t, err, "Error during StopLabNodes operation") {
-			labNodes, err := eveNgClient.GetLabNodes(labPath)
+			labNodes, err := eveNgClient.GetNodes(labPath)
 			if assert.NoError(t, err, "Error during GetLabNodes operation") {
 				for _, labNode := range labNodes {
 					assert.Equal(t, 0, labNode.Status, "Node "+strconv.Itoa(labNode.Id)+" wasn't stopped correctly")
@@ -901,9 +901,9 @@ func TestEveNgClient_Nodes(t *testing.T) {
 	}()
 
 	//Connect node interface to network
-	err = eveNgClient.ConnectLabNodeInterfaceToNetwork(labPath, nodeId, 1, networkId)
+	err = eveNgClient.ConnectNodeInterfaceToNetwork(labPath, nodeId, 1, networkId)
 	if assert.NoError(t, err, "Error during ConnectLabNodeInterfaceToNetwork operation") {
-		nodeInterfaces, err := eveNgClient.GetLabNodeInterfaces(labPath, nodeId)
+		nodeInterfaces, err := eveNgClient.GetNodeInterfaces(labPath, nodeId)
 		if assert.NoError(t, err, "Error during GetLabNodeInterfaces operation") {
 			for _, ethernetInterface := range nodeInterfaces.Ethernet {
 				if ethernetInterface.Name == "Eth1" {
@@ -914,7 +914,7 @@ func TestEveNgClient_Nodes(t *testing.T) {
 	}
 
 	//Get lab topology
-	labTopology, err := eveNgClient.GetLabTopology(labPath)
+	labTopology, err := eveNgClient.GetTopology(labPath)
 	if assert.NoError(t, err, "Error during GetLabTopology operation") {
 		if assert.True(t, len(labTopology) > 0, "No topologies found during GetLabTopology") {
 			for _, topologyPoint := range labTopology {
@@ -950,20 +950,20 @@ func TestEveNgClient_Nodes(t *testing.T) {
 	}
 
 	//Export all lab node start configs
-	err = eveNgClient.ExportLabNodes(labPath)
+	err = eveNgClient.ExportNodes(labPath)
 	assert.NoError(t, err, "Error during ExportLabNodes operation")
 
 	//Wipe all lab nodes
-	err = eveNgClient.WipeLabNodes(labPath)
+	err = eveNgClient.WipeNodes(labPath)
 	if assert.NoError(t, err, "Error during WipeLabNodes operation") {
-		labNode, err := eveNgClient.GetLabNode(labPath, nodeId)
+		labNode, err := eveNgClient.GetNode(labPath, nodeId)
 		if assert.NoError(t, err, "Error during GetLabNode") {
 			assert.Equal(t, 0, labNode.Status, "LabNode hasn't been wiped correctly")
 		}
 	}
 	defer func() {
 		//Start again after wipe
-		err = eveNgClient.StartLabNodes(labPath)
+		err = eveNgClient.StartNodes(labPath)
 		assert.NoError(t, err, "Error during StartLabNodes operation")
 	}()
 }
