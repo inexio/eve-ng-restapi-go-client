@@ -63,11 +63,16 @@ func TestEveNgClient_GetSystemStatus(t *testing.T) {
 
 	systemStatus, err := eveNgClient.GetSystemStatus()
 	if assert.NoError(t, err, "Error during GetSystemStatus operation") {
-		assert.NotNil(t, systemStatus.Dynamips, "Dynamips is nil")
-		assert.NotNil(t, systemStatus.Vpcs, "Vpcs is nil")
-		assert.NotNil(t, systemStatus.Docker, "Docker is nil")
-		assert.NotNil(t, systemStatus.Qemu, "Qemu is nil")
+		assert.NotNil(t, systemStatus.Cached, "Dynamips is nil")
+		assert.NotNil(t, systemStatus.Cpu, "Vpcs is nil")
+		assert.NotNil(t, systemStatus.Disk, "Docker is nil")
+		assert.NotNil(t, systemStatus.Dynamips, "Qemu is nil")
 		assert.NotNil(t, systemStatus.Iol, "Iol is nil")
+		assert.NotNil(t, systemStatus.Mem, "Mem is nil")
+		assert.NotNil(t, systemStatus.Qemu, "Qemu is nil")
+		assert.NotEmpty(t, systemStatus.Qemuversion, "QemuVersion is empty")
+		assert.NotNil(t, systemStatus.Swap, "Swap is nil")
+		assert.NotEmpty(t, systemStatus.Version, "Version is empty")
 	}
 }
 

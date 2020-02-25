@@ -25,11 +25,16 @@ type systemStatusResponse struct {
 SystemStatus contains information regarding the system status
 */
 type SystemStatus struct {
-	Dynamips *float64
-	Vpcs     *float64
-	Docker   *float64
-	Qemu     *float64
-	Iol      *float64
+	Cached			int			`json:"cached"`
+	Cpu				int 		`json:"cpu"`
+	Disk			int			`json:"disk"`
+	Dynamips 		int			`json:"dynamips"`
+	Iol				int			`json:"iol"`
+	Mem				int			`json:"mem"`
+	Qemu 			int			`json:"qemu"`
+	Qemuversion 	string		`json:"qemu_version"`
+	Swap			int			`json:"swap"`
+	Version			string		`json:"version"`
 }
 
 /*
