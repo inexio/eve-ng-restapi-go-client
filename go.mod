@@ -1,4 +1,4 @@
-module eve-ng-restapi-go-client
+module github.com/inexio/eve-ng-restapi-go-client
 
 go 1.13
 
