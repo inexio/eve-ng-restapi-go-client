@@ -817,7 +817,7 @@ func TestEveNgClient_Nodes(t *testing.T) {
 	//Add nodes to the lab
 	foundNodes := 0
 
-	nodeId, err := eveNgClient.AddNode(labPath, "qemu", "veos", "0", 0, "AristaSW.png", "veos-4.16.14M", "vEOS", 404, 227, 512, "telnet", 1, "undefined", 4, "", "", "", "", 1)
+	nodeId, err := eveNgClient.AddNode(labPath, "qemu", "asav", "0", 0, "ASA.png", "asav-952-204", "ASAv", 404, 227, 2048, "telnet", 1, "undefined", 8, "", "", "", "", 1)
 	if assert.NoError(t, err, "Error during AddLabNode operation") {
 		labNodesBeforeRemove, err := eveNgClient.GetNodes(labPath)
 		foundNodes = len(labNodesBeforeRemove)
@@ -827,17 +827,17 @@ func TestEveNgClient_Nodes(t *testing.T) {
 					labNodeDetails, err := eveNgClient.GetNode(labPath, labNode.Id)
 					if assert.NoError(t, err, "Error during GetLabNode operation") {
 						assert.NotEmpty(t, labNodeDetails.Uuid, "Node uuid does is empty")
-						assert.Equal(t, "vEOS", labNodeDetails.Name, "Node name does not match expected value")
+						assert.Equal(t, "ASAv", labNodeDetails.Name, "Node name does not match expected value")
 						assert.Equal(t, "qemu", labNodeDetails.Type, "Node type does not match expected value")
 						assert.Equal(t, 0, labNodeDetails.Status, "Node status does not match expected value")
-						assert.Equal(t, "veos", labNodeDetails.Template, "Node template does not match expected value")
+						assert.Equal(t, "asav", labNodeDetails.Template, "Node template does not match expected value")
 						assert.Equal(t, 1, labNodeDetails.Cpu, "Node cpu does not match expected value")
-						assert.Equal(t, 512, labNodeDetails.Ram, "Node ram does not match expected value")
-						assert.Equal(t, "veos-4.16.14M", labNodeDetails.Image, "Node image does not match expected value")
+						assert.Equal(t, 2048, labNodeDetails.Ram, "Node ram does not match expected value")
+						assert.Equal(t, "asav-952-204", labNodeDetails.Image, "Node image does not match expected value")
 						assert.Equal(t, "telnet", labNodeDetails.Console, "Node console does not match expected value")
-						assert.Equal(t, 4, labNodeDetails.Ethernet, "Node ethernet does not match expected value")
+						assert.Equal(t, 8, labNodeDetails.Ethernet, "Node ethernet does not match expected value")
 						assert.Equal(t, 0, labNodeDetails.Delay, "Node Delay does not match expected value")
-						assert.Equal(t, "AristaSW.png", labNodeDetails.Icon, "Node icon does not match expected value")
+						assert.Equal(t, "ASA.png", labNodeDetails.Icon, "Node icon does not match expected value")
 						assert.NotEmpty(t, labNodeDetails.Url, "Node url is empty")
 						assert.Equal(t, 227, labNodeDetails.Top, "Node top does not match expected value")
 						assert.Equal(t, 404, labNodeDetails.Left, "Node left does not match expected value")
@@ -948,22 +948,64 @@ func TestEveNgClient_Nodes(t *testing.T) {
 			}
 		}
 	}
+}
 
-	//Export all lab node start configs
+/*
+TestEveNgClient_ExportWipeNodes covers:
+	- ExportLabNode
+	- ExportLabNodes
+	- WipeLabNode
+	- WipeLabNodes
+*/
+func TestEveNgClient_ExportWipeNodes(t *testing.T) {
+	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
+	if !assert.NoError(t, err, "Error while creating API client") {
+		return
+	}
+
+	err = eveNgClient.SetUsernameAndPassword(viper.GetString("Username"), viper.GetString("Password"))
+	if !assert.NoError(t, err, "Error while setting username and password") {
+		return
+	}
+
+	err = eveNgClient.Login()
+	if !assert.NoError(t, err, "Error during login") {
+		return
+	}
+	defer func() {
+		err = eveNgClient.Logout()
+		if !assert.NoError(t, err, "Error during logout") {
+			return
+		}
+	}()
+
+	//Add a new lab
+	labFolder := ""
+	labName := "NodeWipeAndExportTesting"
+	labPath := labName + ".unl"
+	err = eveNgClient.AddLab(labFolder, labName, "1", "admin", "A test laboratory", "Test laboratory for unit and integration tests")
+	defer func() {
+		err = eveNgClient.RemoveLab(labPath)
+	}()
+
+	nodeId, _ := eveNgClient.AddNode(labPath, "qemu", "asav", "0", 0, "ASA.png", "asav-952-204", "ASAv", 404, 227, 2048, "telnet", 1, "undefined", 8, "", "", "", "", 1)
+	defer func() {
+		_ = eveNgClient.RemoveNode(labPath, nodeId)
+	}()
+
+	//Export the nodes start configs
+	err = eveNgClient.ExportNode(labPath, nodeId)
+	assert.NoError(t, err, "Error during ExportLabNode operation")
+
+	//Export all nodes start configs
 	err = eveNgClient.ExportNodes(labPath)
 	assert.NoError(t, err, "Error during ExportLabNodes operation")
 
-	//Wipe all lab nodes
+	//Wipe the node
+	err = eveNgClient.WipeNode(labPath, nodeId)
+	assert.NoError(t, err, "Error during WipeNode operation")
+
+	//Wipe all nodes
 	err = eveNgClient.WipeNodes(labPath)
-	if assert.NoError(t, err, "Error during WipeLabNodes operation") {
-		labNode, err := eveNgClient.GetNode(labPath, nodeId)
-		if assert.NoError(t, err, "Error during GetLabNode") {
-			assert.Equal(t, 0, labNode.Status, "LabNode hasn't been wiped correctly")
-		}
-	}
-	defer func() {
-		//Start again after wipe
-		err = eveNgClient.StartNodes(labPath)
-		assert.NoError(t, err, "Error during StartLabNodes operation")
-	}()
+	assert.NoError(t, err, "Error during WipeNodes operation")
 }
