@@ -1,7 +1,6 @@
 package evengclient
 
 import (
-	"github.com/davecgh/go-spew/spew"
 	"github.com/go-resty/resty/v2"
 	"github.com/pkg/errors"
 	"strconv"
@@ -385,7 +384,6 @@ func (c *EveNgClient) ExportNodes(labPath string) error {
 	}
 
 	for _, node := range nodes {
-		spew.Dump(node.Id)
 		err = c.ExportNode(labPath, node.Id)
 		if err != nil {
 			return errors.Wrap(err, "error during ExportNode")
