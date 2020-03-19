@@ -3,6 +3,7 @@ package evengclient
 import (
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
+
 	"strconv"
 	"testing"
 )
@@ -104,18 +105,18 @@ func TestEveNgClient_NodeTemplates(t *testing.T) {
 	}()
 
 	nodeTemplates, err := eveNgClient.GetNodeTemplates()
-	if !assert.NoError(t, err, "Error during GetNodeTemplates operation") {
+	if assert.NoError(t, err, "Error during GetNodeTemplates operation") {
 		assert.True(t, len(nodeTemplates) > 0, "No node templates found during GetNodeTemplates operation")
 	}
 
 	for nodeTemplateName := range nodeTemplates {
 		nodeTemplate, err := eveNgClient.GetNodeTemplate(nodeTemplateName)
-		if !assert.NoError(t, err, "Error during GetNodeTemplate") {
+		if assert.NoError(t, err, "Error during GetNodeTemplate") {
 			assert.True(t, nodeTemplate.Description != "", "No description for node template found during GetNodeTemplate operation")
 			assert.NotEmpty(t, nodeTemplate.Type, "Node template type is empty")
 			//Options
 			//Options.Config
-			assert.IsType(t, List{}, nodeTemplate.Options.Config.List, "Node template options config list is not an actual list")
+			assert.IsType(t, StringArray{}, nodeTemplate.Options.Config.List, "Node template options config list is not an actual list")
 			assert.NotEmpty(t, nodeTemplate.Options.Config.Name, "Node template options config name is empty")
 			assert.NotEmpty(t, nodeTemplate.Options.Config.Type, "Node template options config type is empty")
 			assert.NotEmpty(t, nodeTemplate.Options.Config.Value, "Node template options config value is empty")
@@ -133,30 +134,31 @@ func TestEveNgClient_NodeTemplates(t *testing.T) {
 			assert.NotEmpty(t, nodeTemplate.Options.Icon.Type, "Node template options icon type is empty")
 			assert.NotEmpty(t, nodeTemplate.Options.Icon.Value, "Node template options icon value is empty")
 			//Options.Image
-			assert.IsType(t, List{}, nodeTemplate.Options.Image.List, "Node template options image list is not an actual list")
+			var interfaceType []interface{}
+			assert.IsType(t, interfaceType, nodeTemplate.Options.Image.List, "Node template options image list is not an actual []interface{}")
 			assert.NotEmpty(t, nodeTemplate.Options.Image.Name, "Node template options image name is empty")
 			assert.NotEmpty(t, nodeTemplate.Options.Image.Type, "Node template options image type is empty")
-			assert.NotEmpty(t, nodeTemplate.Options.Image.Value, "Node template options image value is empty")
+			assert.NotNil(t, nodeTemplate.Options.Image.Value, "Node template options image value is nil")
 			//Options.Name
 			assert.NotEmpty(t, nodeTemplate.Options.Name.Name, "Node template options name name is empty")
 			assert.NotEmpty(t, nodeTemplate.Options.Name.Type, "Node template options name type is empty")
 			assert.NotEmpty(t, nodeTemplate.Options.Name.Value, "Node template options name value is empty")
 			//Options.Nvram
-			assert.NotEmpty(t, nodeTemplate.Options.Nvram.Name, "Node template options nvram name is empty")
-			assert.NotEmpty(t, nodeTemplate.Options.Nvram.Type, "Node template options nvram type is empty")
+			assert.NotNil(t, nodeTemplate.Options.Nvram.Name, "Node template options nvram name is nil")
+			assert.NotNil(t, nodeTemplate.Options.Nvram.Type, "Node template options nvram type is nil")
 			assert.NotNil(t, nodeTemplate.Options.Nvram.Value, "Node template options nvram value is nil")
 			//Options.Ram
 			assert.NotEmpty(t, nodeTemplate.Options.Ram.Name, "Node template options ram name is empty")
 			assert.NotEmpty(t, nodeTemplate.Options.Ram.Type, "Node template options ram type is empty")
 			assert.NotNil(t, nodeTemplate.Options.Ram.Value, "Node template options ram value is nil")
 			//Options.Serial
-			assert.NotEmpty(t, nodeTemplate.Options.Serial.Name, "Node template options serial name is empty")
-			assert.NotEmpty(t, nodeTemplate.Options.Serial.Type, "Node template options serial type is empty")
+			assert.NotNil(t, nodeTemplate.Options.Serial.Name, "Node template options serial name is nil")
+			assert.NotNil(t, nodeTemplate.Options.Serial.Type, "Node template options serial type is nil")
 			assert.NotNil(t, nodeTemplate.Options.Serial.Value, "Node template options serial value is nil")
 			//Options.Uuid
 			assert.NotEmpty(t, nodeTemplate.Options.Uuid.Name, "Node template options uuid name is empty")
 			assert.NotEmpty(t, nodeTemplate.Options.Uuid.Type, "Node template options uuid type is empty")
-			assert.NotEmpty(t, nodeTemplate.Options.Uuid.Value, "Node template options uuid value is empty")
+			assert.NotNil(t, nodeTemplate.Options.Uuid.Value, "Node template options uuid value is nil")
 			//Options.CpuLimit
 			assert.NotEmpty(t, nodeTemplate.Options.Cpulimit.Name, "Node template options cpulimit name is empty")
 			assert.NotEmpty(t, nodeTemplate.Options.Cpulimit.Type, "Node template options cpulimit type is empty")
@@ -168,42 +170,42 @@ func TestEveNgClient_NodeTemplates(t *testing.T) {
 			//Options.Firstmac
 			assert.NotEmpty(t, nodeTemplate.Options.Firstmac.Name, "Node template options firstmac name is empty")
 			assert.NotEmpty(t, nodeTemplate.Options.Firstmac.Type, "Node template options firstmac type is empty")
-			assert.NotEmpty(t, nodeTemplate.Options.Firstmac.Value, "Node template options firstmac value is empty")
+			assert.NotNil(t, nodeTemplate.Options.Firstmac.Value, "Node template options firstmac value is nil")
 			//Options.Qemuversion
 			assert.IsType(t, List{}, nodeTemplate.Options.Qemuversion.List, "Node template options qemuversions list is not an actual list")
-			assert.NotEmpty(t, nodeTemplate.Options.Qemuversion.Name, "Node template options qemuversion name is empty")
-			assert.NotEmpty(t, nodeTemplate.Options.Qemuversion.Type, "Node template options qemuversion type is empty")
-			assert.NotEmpty(t, nodeTemplate.Options.Qemuversion.Value, "Node template options qemuversion value is empty")
+			assert.NotNil(t, nodeTemplate.Options.Qemuversion.Name, "Node template options qemuversion name is nil")
+			assert.NotNil(t, nodeTemplate.Options.Qemuversion.Type, "Node template options qemuversion type is nil")
+			assert.NotNil(t, nodeTemplate.Options.Qemuversion.Value, "Node template options qemuversion value is nil")
 			//Options.Qemuarch
 			assert.IsType(t, List{}, nodeTemplate.Options.Qemuarch.List, "Node template options qemuarch list is not an actual list")
-			assert.NotEmpty(t, nodeTemplate.Options.Qemuarch.Name, "Node template options qemuarch name is empty")
-			assert.NotEmpty(t, nodeTemplate.Options.Qemuarch.Type, "Node template options qemuarch type is empty")
-			assert.NotEmpty(t, nodeTemplate.Options.Qemuarch.Value, "Node template options qemuarch value is empty")
+			assert.NotNil(t, nodeTemplate.Options.Qemuarch.Name, "Node template options qemuarch name is nil")
+			assert.NotNil(t, nodeTemplate.Options.Qemuarch.Type, "Node template options qemuarch type is nil")
+			assert.NotNil(t, nodeTemplate.Options.Qemuarch.Value, "Node template options qemuarch value is nil")
 			//Options.Qemunic
 			assert.IsType(t, List{}, nodeTemplate.Options.Qemunic.List, "Node template options qemunic list is not an actual list")
-			assert.NotEmpty(t, nodeTemplate.Options.Qemunic.Name, "Node template options qemunic name is empty")
-			assert.NotEmpty(t, nodeTemplate.Options.Qemunic.Type, "Node template options qemunic type is empty")
-			assert.NotEmpty(t, nodeTemplate.Options.Qemunic.Value, "Node template options qemunic value is empty")
+			assert.NotNil(t, nodeTemplate.Options.Qemunic.Name, "Node template options qemunic name is nil")
+			assert.NotNil(t, nodeTemplate.Options.Qemunic.Type, "Node template options qemunic type is nil")
+			assert.NotNil(t, nodeTemplate.Options.Qemunic.Value, "Node template options qemunic value is nil")
 			//Options.Qemuoptions
-			assert.NotEmpty(t, nodeTemplate.Options.Qemuoptions.Name, "Node template options qemuoptions name is empty")
-			assert.NotEmpty(t, nodeTemplate.Options.Qemuoptions.Type, "Node template options qemuoptions type is empty")
-			assert.NotEmpty(t, nodeTemplate.Options.Qemuoptions.Value, "Node template options qemuoptions value is empty")
+			assert.NotNil(t, nodeTemplate.Options.Qemuoptions.Name, "Node template options qemuoptions name is nil")
+			assert.NotNil(t, nodeTemplate.Options.Qemuoptions.Type, "Node template options qemuoptions type is nil")
+			assert.NotNil(t, nodeTemplate.Options.Qemuoptions.Value, "Node template options qemuoptions value is nil")
 			//Options.Console
 			assert.IsType(t, List{}, nodeTemplate.Options.Console.List, "Node template options console list is not an actual list")
 			assert.NotEmpty(t, nodeTemplate.Options.Console.Name, "Node template options console name is empty")
 			assert.NotEmpty(t, nodeTemplate.Options.Console.Type, "Node template options console type is empty")
 			assert.NotEmpty(t, nodeTemplate.Options.Console.Value, "Node template options console value is empty")
 			//Options.Rdpuser
-			assert.NotEmpty(t, nodeTemplate.Options.Rdpuser.Name, "Node template options rdpuser name is empty")
-			assert.NotEmpty(t, nodeTemplate.Options.Rdpuser.Type, "Node template options rdpuser type is empty")
-			assert.NotEmpty(t, nodeTemplate.Options.Rdpuser.Value, "Node template options rdpuser value is empty")
+			assert.NotNil(t, nodeTemplate.Options.Rdpuser.Name, "Node template options rdpuser name is nil")
+			assert.NotNil(t, nodeTemplate.Options.Rdpuser.Type, "Node template options rdpuser type is nil")
+			assert.NotNil(t, nodeTemplate.Options.Rdpuser.Value, "Node template options rdpuser value is nil")
 			//Options.Rdppassword
-			assert.NotEmpty(t, nodeTemplate.Options.Rdppassword.Name, "Node template options rdppassword name is empty")
-			assert.NotEmpty(t, nodeTemplate.Options.Rdppassword.Type, "Node template options rdppassword type is empty")
-			assert.NotEmpty(t, nodeTemplate.Options.Rdppassword.Value, "Node template options rdppassword value is empty")
+			assert.NotNil(t, nodeTemplate.Options.Rdppassword.Name, "Node template options rdppassword name is nil")
+			assert.NotNil(t, nodeTemplate.Options.Rdppassword.Type, "Node template options rdppassword type is nil")
+			assert.NotNil(t, nodeTemplate.Options.Rdppassword.Value, "Node template options rdppassword value is nil")
 			//Qemu
 			assert.NotEmpty(t, nodeTemplate.Qemu.Arch, "Node template qemu arch is empty")
-			assert.NotEmpty(t, nodeTemplate.Qemu.Nic, "Node template qemu nic is empty")
+			assert.NotNil(t, nodeTemplate.Qemu.Nic, "Node template qemu nic is nil")
 			assert.NotEmpty(t, nodeTemplate.Qemu.Options, "Node template qemu options is empty")
 		}
 		break

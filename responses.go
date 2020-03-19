@@ -338,7 +338,7 @@ type Icon struct {
 Image contains information about the templates image option
 */
 type Image struct {
-	List StringArray `json:"list"`
+	List interface{} `json:"list"`
 	StringValTemplateOption
 }
 
