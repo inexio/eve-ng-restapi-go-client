@@ -114,10 +114,15 @@ password := <password>
 eveNgClient, err := NewEveNgClient(baseUrl)
 _ := eveNgClient.SetUsernameAndPassword(username, password)
 
+_ = eveNgClient.Login()
+defer func() {
+  _ = eveNgClient.Logout()
+}()
+
 _ = eveNgClient.AddFolder("/", "TestFolder")
 
 labFolder := "/TestFolder" //path to the desired folder
-labName := "TestLaboratory.unl" //name of the laboratory (has to end on '.unl')
+labName := "TestLaboratory" //name of the laboratory
 
 _ = eveNgClient.AddLab(labFolder, labName, "1", "admin", "A test laboratory", "Test laboratory for unit and integration tests")
 
