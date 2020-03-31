@@ -1,9 +1,12 @@
 package evengclient
 
 import (
+	"encoding/json"
 	"github.com/go-resty/resty/v2"
 	"github.com/pkg/errors"
+	"io/ioutil"
 	"strconv"
+	"strings"
 )
 
 //---------- Client operations ----------//
@@ -406,6 +409,47 @@ func (c *EveNgClient) ExportNode(labPath string, nodeId int) error {
 	}
 
 	return err
+}
+
+/*
+SetNodeStartupConfig sets a startup config for a given node. The startup config is passed as a path to a
+local startup config file.
+*/
+func (c *EveNgClient) SetNodeStartupConfig(labPath string, nodeId int, startupConfigFilePath string) error {
+	if !c.isValid() {
+		return &NotValidError{}
+	}
+	startupConfigFilePath = strings.TrimSpace(startupConfigFilePath)
+	b, err := ioutil.ReadFile(startupConfigFilePath)
+	if err != nil {
+		return errors.Wrap(err, "error while reading file")
+	}
+	s := string(b)
+	return c.SetNodeStartupConfigString(labPath, nodeId, s)
+}
+
+/*
+SetNodeStartupConfigString sets a startup config for a given node. The startup config is passed as a string.
+*/
+func (c *EveNgClient) SetNodeStartupConfigString(labPath string, nodeId int, startupConfigString string) error {
+	if !c.isValid() {
+		return &NotValidError{}
+	}
+	httpBody := make(map[string]string)
+	httpBody["id"] = strconv.Itoa(nodeId)
+	httpBody["data"] = startupConfigString
+	httpBody["cfsid"] = "default"
+
+	b, err := json.Marshal(httpBody)
+	if err != nil {
+		return errors.Wrap(err, "failed to marshal http body to json")
+	}
+
+	_, err = c.request("PUT", endpointPath+"labs/"+labPath+"/configs/"+strconv.Itoa(nodeId), string(b), nil, nil)
+	if err != nil {
+		return errors.Wrap(err, "error during http request")
+	}
+	return nil
 }
 
 //---------- Node Interface operations ----------//
