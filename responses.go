@@ -196,7 +196,7 @@ Interface basic interface structure
 */
 type Interface struct {
 	Name      string `json:"name"`
-	NetworkId int    `json:"network_id"`
+	NetworkId *int   `json:"network_id"`
 }
 
 /*

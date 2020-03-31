@@ -2,11 +2,12 @@ package evengclient
 
 import (
 	"encoding/json"
-	"github.com/go-resty/resty/v2"
-	"github.com/pkg/errors"
 	"io/ioutil"
 	"strconv"
 	"strings"
+
+	"github.com/go-resty/resty/v2"
+	"github.com/pkg/errors"
 )
 
 //---------- Client operations ----------//
@@ -462,6 +463,21 @@ func (c *EveNgClient) ConnectNodeInterfaceToNetwork(labPath string, nodeId int, 
 		return &NotValidError{}
 	}
 	_, err := c.request("PUT", endpointPath+"labs/"+labPath+"/nodes/"+strconv.Itoa(nodeId)+"/interfaces", `{"`+strconv.Itoa(interfaceId)+`":"`+strconv.Itoa(networkId)+`"}`, nil, nil)
+	if err != nil {
+		return errors.Wrap(err, "error during http get request")
+	}
+
+	return nil
+}
+
+/*
+DisconnectNodeInterfaceFromNetwork disconnects the given node interface to a network
+*/
+func (c *EveNgClient) DisconnectNodeInterfaceFromNetwork(labPath string, nodeId int, interfaceId int) error {
+	if !c.isValid() {
+		return &NotValidError{}
+	}
+	_, err := c.request("PUT", endpointPath+"labs/"+labPath+"/nodes/"+strconv.Itoa(nodeId)+"/interfaces", `{"`+strconv.Itoa(interfaceId)+`":""}`, nil, nil)
 	if err != nil {
 		return errors.Wrap(err, "error during http get request")
 	}
