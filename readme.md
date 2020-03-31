@@ -114,24 +114,24 @@ password := <password>
 eveNgClient, err := NewEveNgClient(baseUrl)
 _ := eveNgClient.SetUsernameAndPassword(username, password)
 
-_ = eveNgClient.AddFolder("", "TestFolder")
+_ = eveNgClient.AddFolder("/", "TestFolder")
 
 labFolder := "/TestFolder" //path to the desired folder
 labName := "TestLaboratory.unl" //name of the laboratory (has to end on '.unl')
 
 _ = eveNgClient.AddLab(labFolder, labName, "1", "admin", "A test laboratory", "Test laboratory for unit and integration tests")
 
-networkId, _ = eveNgClient.AddLabNetwork("/TestFolder/TestLaboratory.unl", "nat0", "TestNetwork", "69", "420", 1, 0)
+networkId, _ = eveNgClient.AddNetwork("/TestFolder/TestLaboratory.unl", "nat0", "TestNetwork", "69", "420", 1, 0)
 
-nodeId, _ := eveNgClient.AddLabNode("/TestFolder/TestLaboratory.unl", "qemu", "veos", "0", 0, "AristaSW.png", "veos-4.16.14M", "vEOS", "420", "69", "512", "telnet", 1, "undefined", 4, "", "", "", "", 1)
+nodeId, _ := eveNgClient.AddNode("/TestFolder/TestLaboratory.unl", "qemu", "veos", "0", 0, "AristaSW.png", "veos-4.16.14M", "vEOS", "420", "69", "512", "telnet", 1, "undefined", 4, "", "", "", "", 1)
 
-_ = eveNgClient.ConnectLabNodeInterfaceToNetwork("/TestFolder/TestLaboratory.unl", nodeId, 1, networkId)
+_ = eveNgClient.ConnectNodeInterfaceToNetwork("/TestFolder/TestLaboratory.unl", nodeId, 1, networkId)
 
-_ = eveNgClient.StartLabNode("/TestFolder/TestLaboratory.unl", nodeId)
+_ = eveNgClient.StartNode("/TestFolder/TestLaboratory.unl", nodeId)
 
-labTopology, _ := eveNgClient.GetLabTopology("/TestFolder/TestLaboratory.unl")
+labTopology, _ := eveNgClient.GetTopology("/TestFolder/TestLaboratory.unl")
 
-_ = eveNgClient.StartLabNodes("/TestFolder/TestLaboratory.unl")
+_ = eveNgClient.StartNodes("/TestFolder/TestLaboratory.unl")
 ```
 
 After running the code above, the lab you just created should look like this when viewed from the web-interface
