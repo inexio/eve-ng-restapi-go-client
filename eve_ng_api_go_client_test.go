@@ -904,9 +904,9 @@ func TestEveNgClient_Nodes(t *testing.T) {
 
 	//Connect node interface to network
 	err = eveNgClient.ConnectNodeInterfaceToNetwork(labPath, nodeId, 1, networkId)
-	if assert.NoError(t, err, "Error during ConnectLabNodeInterfaceToNetwork operation") {
+	if assert.NoError(t, err, "Error during ConnectNodeInterfaceToNetwork operation") {
 		nodeInterfaces, err := eveNgClient.GetNodeInterfaces(labPath, nodeId)
-		if assert.NoError(t, err, "Error during GetLabNodeInterfaces operation") {
+		if assert.NoError(t, err, "Error during GetNodeInterfaces operation") {
 			for _, ethernetInterface := range nodeInterfaces.Ethernet {
 				if ethernetInterface.Name == "Eth1" {
 					assert.Equal(t, networkId, ethernetInterface.NetworkId, "Network was not correctly added to NodeInterface")
@@ -914,6 +914,20 @@ func TestEveNgClient_Nodes(t *testing.T) {
 			}
 		}
 	}
+	defer func() {
+		//Disconnect node from network
+		err = eveNgClient.DisconnectNodeInterfaceFromNetwork(labPath, nodeId, 1)
+		if assert.NoError(t, err, "Error during DisconnectNodeInterfaceFromNetwork") {
+			nodeInterfaces, err := eveNgClient.GetNodeInterfaces(labPath, nodeId)
+			if assert.NoError(t, err, "Error during GetNodeInterfaces operation") {
+				for _, ethernetInterface := range nodeInterfaces.Ethernet {
+					if ethernetInterface.Name == "Eth1" {
+						assert.Equal(t, nil, ethernetInterface.NetworkId, "Network was not correctly added to NodeInterface")
+					}
+				}
+			}
+		}
+	}()
 
 	//Get lab topology
 	labTopology, err := eveNgClient.GetTopology(labPath)
