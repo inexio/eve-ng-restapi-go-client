@@ -210,7 +210,7 @@ func (c *EveNgClient) AddNode(labPath string, nodeType string, template string, 
 	if !c.isValid() {
 		return 0, &NotValidError{}
 	}
-	response, err := c.request("POST", endpointPath+"labs/"+labPath+"/nodes", `{"path":"`+labPath+`","type":"`+nodeType+`","template":"`+template+`","config":"`+config+`","delay":"`+strconv.Itoa(delay)+`","icon":"`+icon+`","image":"`+image+`","name":"`+name+`","left":"`+strconv.Itoa(left)+`","top":"`+strconv.Itoa(top)+`","ram":"`+strconv.Itoa(ram)+`","console":"`+console+`","cpu":"`+strconv.Itoa(cpu)+`","cpulimit":"`+cpuLimit+`","fistmac":"`+firstMac+`","ethernet":"`+strconv.Itoa(ethernet)+`","rdp_user":"`+rdpUser+`","rdp_password":"`+rdpPassword+`","uuid":"`+uuid+`","count":"`+strconv.Itoa(count)+`"}`, nil, nil)
+	response, err := c.request("POST", endpointPath+"labs/"+labPath+"/nodes", `{"path":"`+labPath+`","type":"`+nodeType+`","template":"`+template+`","config":"`+config+`","delay":"`+strconv.Itoa(delay)+`","icon":"`+icon+`","image":"`+image+`","name":"`+name+`","left":"`+strconv.Itoa(left)+`","top":"`+strconv.Itoa(top)+`","ram":"`+strconv.Itoa(ram)+`","console":"`+console+`","cpu":"`+strconv.Itoa(cpu)+`","cpulimit":"`+cpuLimit+`","firstmac":"`+firstMac+`","ethernet":"`+strconv.Itoa(ethernet)+`","rdp_user":"`+rdpUser+`","rdp_password":"`+rdpPassword+`","uuid":"`+uuid+`","count":"`+strconv.Itoa(count)+`"}`, nil, nil)
 	if err != nil {
 		return 0, errors.Wrap(err, "error during http get request")
 	}
