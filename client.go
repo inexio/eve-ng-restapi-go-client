@@ -2,14 +2,14 @@ package evengclient
 
 import (
 	"encoding/json"
-	"github.com/go-resty/resty/v2"
-	"github.com/pkg/errors"
-	"github.com/spf13/viper"
-	"log"
 	"net/url"
 	"reflect"
 	"strconv"
 	"strings"
+
+	"github.com/go-resty/resty/v2"
+	"github.com/pkg/errors"
+	"github.com/spf13/viper"
 )
 
 const (
@@ -84,10 +84,7 @@ func init() {
 	viper.AutomaticEnv()
 
 	// If a config file is found, read it in.
-	err := viper.ReadInConfig()
-	if err != nil {
-		log.Printf("Couldn't read config")
-	}
+	viper.ReadInConfig()
 }
 
 /*
