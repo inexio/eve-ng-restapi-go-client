@@ -14,7 +14,7 @@ type BasicResponse struct {
 CreateResponse contains the data returned by the api in case of a create
 */
 type CreateResponse struct {
-	Id int `json:"id"`
+	ID int `json:"id"`
 }
 
 type systemStatusResponse struct {
@@ -26,7 +26,7 @@ SystemStatus contains information regarding the system status
 */
 type SystemStatus struct {
 	Cached      int    `json:"cached"`
-	Cpu         int    `json:"cpu"`
+	CPU         int    `json:"cpu"`
 	Disk        int    `json:"disk"`
 	Dynamips    int    `json:"dynamips"`
 	Iol         int    `json:"iol"`
@@ -75,7 +75,7 @@ type LabFile struct {
 Lab contains information about a lab
 */
 type Lab struct {
-	Id          string `json:"id"`
+	ID          string `json:"id"`
 	Name        string `json:"name"`
 	Version     string `json:"version"`
 	Author      string `json:"author"`
@@ -101,17 +101,17 @@ type Network struct {
 }
 
 /*
-NetworkWithId contains information about a network including its id
+NetworkWithID contains information about a network including its id
 */
-type NetworkWithId struct {
-	Id int `json:"id"`
+type NetworkWithID struct {
+	ID int `json:"id"`
 	Network
 }
 
 /*
 Networks an array of Networks
 */
-type Networks map[string]NetworkWithId
+type Networks map[string]NetworkWithID
 
 /*
 NetworkTypes is an array of network types
@@ -140,19 +140,19 @@ type SerialEndpoints map[string]string
 Node contains information about a node
 */
 type Node struct {
-	Uuid       string      `json:"uuid"`
+	UUID       string      `json:"uuid"`
 	Name       string      `json:"name"`
 	Type       string      `json:"type"`
 	Status     int         `json:"status"`
 	Template   string      `json:"template"`
-	Cpu        int         `json:"cpu"`
-	Ram        int         `json:"ram"`
+	CPU        int         `json:"cpu"`
+	RAM        int         `json:"ram"`
 	Image      string      `json:"image"`
 	Console    string      `json:"console"`
 	Ethernet   int         `json:"ethernet"`
 	Delay      int         `json:"delay"`
 	Icon       string      `json:"icon"`
-	Url        string      `json:"url"`
+	URL        string      `json:"url"`
 	Top        int         `json:"top"`
 	Left       int         `json:"left"`
 	Config     string      `json:"config"`
@@ -161,17 +161,17 @@ type Node struct {
 }
 
 /*
-NodeWithId contains information about a node including its id
+NodeWithID contains information about a node including its id
 */
-type NodeWithId struct {
-	Id int `json:"id"`
+type NodeWithID struct {
+	ID int `json:"id"`
 	Node
 }
 
 /*
 Nodes an array of Nodes
 */
-type Nodes map[string]NodeWithId
+type Nodes map[string]NodeWithID
 
 /*
 Interfaces contains information about ethernet and serial interfaces
@@ -196,7 +196,7 @@ Interface basic interface structure
 */
 type Interface struct {
 	Name      string `json:"name"`
-	NetworkId *int   `json:"network_id"`
+	NetworkID *int   `json:"network_id"`
 }
 
 /*
@@ -211,7 +211,7 @@ type Topology struct {
 	Destination            string `json:"destination"`
 	DestinationLabel       string `json:"destination_label"`
 	DestinationType        string `json:"destination_type"`
-	DestinationInterfaceId string `json:"destinationinterfaceid"`
+	DestinationInterfaceID string `json:"destinationinterfaceid"`
 	DestinationNodename    string `json:"destinationnodename"`
 	DestinationSuspend     int    `json:"destinationsuspend"`
 	DestinationDelay       int    `json:"destinationdelay"`
@@ -222,14 +222,14 @@ type Topology struct {
 	SourceLabel            string `json:"source_label"`
 	SourceType             string `json:"source_type"`
 	SourceNodename         string `json:"sourcenodename"`
-	SourceInterfaceId      int    `json:"sourceinterface"`
+	SourceInterfaceID      int    `json:"sourceinterface"`
 	SourceSuspend          int    `json:"sourcesuspend"`
 	SourceDelay            int    `json:"sourcedelay"`
 	SourceLoss             int    `json:"sourceloss"`
 	SourceBandwidth        int    `json:"sourcebandwidth"`
 	SourceJitter           int    `json:"sourcejitter"`
 	Type                   string `json:"type"`
-	NetworkId              int    `json:"networkid"`
+	NetworkID              int    `json:"networkid"`
 	Style                  string `json:"style"`
 	Linkstyle              string `json:"linkstyle"`
 	Label                  string `json:"label"`
@@ -245,7 +245,7 @@ type Pictures []Picture
 Picture contains information about a specific picture
 */
 type Picture struct {
-	Id     int    `json:"id"`
+	ID     int    `json:"id"`
 	Name   string `json:"name"`
 	Type   string `json:"type"`
 	Map    string `json:"map"`
@@ -279,11 +279,11 @@ type Options struct {
 	Image       Image       `json:"image"`
 	Name        Name        `json:"name"`
 	Nvram       Nvram       `json:"nvram"`
-	Ram         Ram         `json:"ram"`
+	RAM         RAM         `json:"ram"`
 	Serial      Serial      `json:"serial"`
-	Uuid        Uuid        `json:"uuid"`
+	UUID        UUID        `json:"uuid"`
 	Cpulimit    Cpulimit    `json:"cpulimit"`
-	Cpu         Cpu         `json:"cpu"`
+	CPU         CPU         `json:"cpu"`
 	Firstmac    Firstmac    `json:"firstmac"`
 	Qemuversion Qemuversion `json:"qemuversion"`
 	Qemuarch    Qemuarch    `json:"qemuarch"`
@@ -357,9 +357,9 @@ type Nvram struct {
 }
 
 /*
-Ram contains information about the templates ram option
+RAM contains information about the templates ram option
 */
-type Ram struct {
+type RAM struct {
 	IntValTemplateOption
 }
 
@@ -371,9 +371,9 @@ type Serial struct {
 }
 
 /*
-Uuid contains information about the templates Uuid option
+UUID contains information about the templates UUID option
 */
-type Uuid struct {
+type UUID struct {
 	StringValTemplateOption
 }
 
@@ -385,9 +385,9 @@ type Cpulimit struct {
 }
 
 /*
-Cpu contains information about the templates cpu option
+CPU contains information about the templates cpu option
 */
-type Cpu struct {
+type CPU struct {
 	IntValTemplateOption
 }
 
@@ -490,14 +490,14 @@ type User struct {
 	Username    string  `json:"username"`
 	Email       string  `json:"email"`
 	ExtAuth     string  `json:"ext_auth"`
-	Ram         string  `json:"ram"`
-	Cpu         string  `json:"cpu"`
+	RAM         string  `json:"ram"`
+	CPU         string  `json:"cpu"`
 	Expiration  string  `json:"expiration"`
 	Name        string  `json:"name"`
 	Session     string  `json:"session"`
 	Role        string  `json:"role"`
 	Online      int     `json:"online"`
-	Ip          string  `json:"ip"`
+	IP          string  `json:"ip"`
 	Folder      string  `json:"folder"`
 	Lab         string  `json:"lab"`
 	Pod         string  `json:"pod"`

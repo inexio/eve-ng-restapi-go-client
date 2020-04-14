@@ -25,7 +25,7 @@ type client struct {
 clientData - Contains data of a client
 */
 type clientData struct {
-	baseUrl  string
+	baseURL  string
 	username string
 	password string
 
@@ -39,7 +39,7 @@ NotValidError - Is returned when the client was not initialized properly
 type NotValidError struct{}
 
 func (m *NotValidError) Error() string {
-	return "client was not created properly with the func New...Client(baseUrl string)"
+	return "client was not created properly with the func New...Client(baseURL string)"
 }
 
 /*
@@ -118,13 +118,13 @@ func (c *client) request(method string, path string, body string, header, queryP
 
 	switch method {
 	case "GET":
-		response, err = request.Get(c.baseUrl + urlEscapePath(path))
+		response, err = request.Get(c.baseURL + urlEscapePath(path))
 	case "POST":
-		response, err = request.Post(c.baseUrl + urlEscapePath(path))
+		response, err = request.Post(c.baseURL + urlEscapePath(path))
 	case "PUT":
-		response, err = request.Put(c.baseUrl + urlEscapePath(path))
+		response, err = request.Put(c.baseURL + urlEscapePath(path))
 	case "DELETE":
-		response, err = request.Delete(c.baseUrl + urlEscapePath(path))
+		response, err = request.Delete(c.baseURL + urlEscapePath(path))
 	default:
 		return nil, errors.New("invalid http method: " + method)
 	}
@@ -132,7 +132,7 @@ func (c *client) request(method string, path string, body string, header, queryP
 		return nil, errors.Wrap(err, "error during http request")
 	}
 	if response.StatusCode() != 200 && response.StatusCode() != 201 {
-		return nil, errors.Wrap(getHttpError(response), "http request responded with an error")
+		return nil, errors.Wrap(getHTTPError(response), "http request responded with an error")
 	}
 
 	return response, err
@@ -141,9 +141,9 @@ func (c *client) request(method string, path string, body string, header, queryP
 //Http error handling
 
 /*
-HttpError - Represents an http error returned by the api.
+HTTPError - Represents an http error returned by the api.
 */
-type HttpError struct {
+type HTTPError struct {
 	StatusCode int
 	Status     string
 	Body       *ErrorResponse
@@ -157,7 +157,7 @@ type ErrorResponse struct {
 	Status  int    `json:"status"`
 }
 
-func (h HttpError) Error() string {
+func (h HTTPError) Error() string {
 	msg := "http error: status code: " + strconv.Itoa(h.StatusCode) + " // status: " + h.Status
 	if h.Body != nil {
 		msg += " // message: " + h.Body.Message
@@ -165,8 +165,8 @@ func (h HttpError) Error() string {
 	return msg
 }
 
-func getHttpError(response *resty.Response) error {
-	httpError := HttpError{
+func getHTTPError(response *resty.Response) error {
+	httpError := HTTPError{
 		StatusCode: response.StatusCode(),
 		Status:     response.Status(),
 	}

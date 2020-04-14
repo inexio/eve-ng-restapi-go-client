@@ -22,16 +22,16 @@ type EveNgClient struct {
 /*
 NewEveNgClient generates a new eve-ng api-client object which can be used to communicate with the eve-ng REST API
 */
-func NewEveNgClient(baseUrl string) (*EveNgClient, error) {
-	if baseUrl == "" {
+func NewEveNgClient(baseURL string) (*EveNgClient, error) {
+	if baseURL == "" {
 		return nil, errors.New("invalid base url")
 	}
 
-	//if baseUrl does not end with an "/" it has to be added to the string
-	if lastChar := baseUrl[len(baseUrl)-1:]; lastChar != "/" {
-		baseUrl += "/"
+	//if baseURL does not end with an "/" it has to be added to the string
+	if lastChar := baseURL[len(baseURL)-1:]; lastChar != "/" {
+		baseURL += "/"
 	}
-	clientData := clientData{baseUrl: baseUrl, resty: resty.New(), useAuth: false}
+	clientData := clientData{baseURL: baseURL, resty: resty.New(), useAuth: false}
 	newClient := client{&clientData}
 	return &EveNgClient{newClient}, nil
 }
@@ -222,18 +222,18 @@ func (c *EveNgClient) AddNode(labPath string, nodeType string, template string, 
 		return 0, err
 	}
 
-	return createResponse.Id, nil
+	return createResponse.ID, nil
 }
 
 /*
 RemoveNode removes a node from a lab
 */
-func (c *EveNgClient) RemoveNode(labPath string, nodeId int) error {
+func (c *EveNgClient) RemoveNode(labPath string, nodeID int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
 
-	_, err := c.request("DELETE", endpointPath+"labs/"+labPath+"/nodes/"+strconv.Itoa(nodeId), "", nil, nil)
+	_, err := c.request("DELETE", endpointPath+"labs/"+labPath+"/nodes/"+strconv.Itoa(nodeID), "", nil, nil)
 	if err != nil {
 		return errors.Wrap(err, "Error during http request")
 	}
@@ -263,11 +263,11 @@ func (c *EveNgClient) GetNodes(labPath string) (Nodes, error) {
 /*
 GetNode - Returns data for a specific lab node
 */
-func (c *EveNgClient) GetNode(labPath string, nodeId int) (Node, error) {
+func (c *EveNgClient) GetNode(labPath string, nodeID int) (Node, error) {
 	if !c.isValid() {
 		return Node{}, &NotValidError{}
 	}
-	response, err := c.request("GET", endpointPath+"labs/"+labPath+"/nodes/"+strconv.Itoa(nodeId), "", nil, nil)
+	response, err := c.request("GET", endpointPath+"labs/"+labPath+"/nodes/"+strconv.Itoa(nodeID), "", nil, nil)
 	if err != nil {
 		return Node{}, errors.Wrap(err, "error during http get request")
 	}
@@ -289,7 +289,7 @@ func (c *EveNgClient) StartNodes(labPath string) error {
 	}
 
 	for _, node := range nodes {
-		err = c.StartNode(labPath, node.Id)
+		err = c.StartNode(labPath, node.ID)
 		if err != nil {
 			return errors.Wrap(err, "error during http get request")
 		}
@@ -301,11 +301,11 @@ func (c *EveNgClient) StartNodes(labPath string) error {
 /*
 StartNode starts a specific node in a lab
 */
-func (c *EveNgClient) StartNode(labPath string, nodeId int) error {
+func (c *EveNgClient) StartNode(labPath string, nodeID int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
-	_, err := c.request("GET", endpointPath+"labs/"+labPath+"/nodes/"+strconv.Itoa(nodeId)+"/start", "", nil, nil)
+	_, err := c.request("GET", endpointPath+"labs/"+labPath+"/nodes/"+strconv.Itoa(nodeID)+"/start", "", nil, nil)
 	if err != nil {
 		return errors.Wrap(err, "error during http get request")
 	}
@@ -322,7 +322,7 @@ func (c *EveNgClient) StopNodes(labPath string) error {
 	}
 
 	for _, node := range nodes {
-		err = c.StopNode(labPath, node.Id)
+		err = c.StopNode(labPath, node.ID)
 		if err != nil {
 			return errors.Wrap(err, "error during http get request")
 		}
@@ -334,11 +334,11 @@ func (c *EveNgClient) StopNodes(labPath string) error {
 /*
 StopNode stops a specific node in a lab
 */
-func (c *EveNgClient) StopNode(labPath string, nodeId int) error {
+func (c *EveNgClient) StopNode(labPath string, nodeID int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
-	_, err := c.request("GET", endpointPath+"labs/"+labPath+"/nodes/"+strconv.Itoa(nodeId)+"/stop/stopmode=3", "", nil, nil)
+	_, err := c.request("GET", endpointPath+"labs/"+labPath+"/nodes/"+strconv.Itoa(nodeID)+"/stop/stopmode=3", "", nil, nil)
 	if err != nil {
 		return errors.Wrap(err, "error during http get request")
 	}
@@ -355,7 +355,7 @@ func (c *EveNgClient) WipeNodes(labPath string) error {
 	}
 
 	for _, node := range nodes {
-		err = c.WipeNode(labPath, node.Id)
+		err = c.WipeNode(labPath, node.ID)
 		if err != nil {
 			return errors.Wrap(err, "error during WipeLabNode")
 		}
@@ -367,11 +367,11 @@ func (c *EveNgClient) WipeNodes(labPath string) error {
 /*
 WipeNode wipes a specific node in a lab
 */
-func (c *EveNgClient) WipeNode(labPath string, nodeId int) error {
+func (c *EveNgClient) WipeNode(labPath string, nodeID int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
-	_, err := c.request("GET", endpointPath+"labs/"+labPath+"/nodes/"+strconv.Itoa(nodeId)+"/wipe", "", nil, nil)
+	_, err := c.request("GET", endpointPath+"labs/"+labPath+"/nodes/"+strconv.Itoa(nodeID)+"/wipe", "", nil, nil)
 	if err != nil {
 		return errors.Wrap(err, "error during http get request")
 	}
@@ -388,7 +388,7 @@ func (c *EveNgClient) ExportNodes(labPath string) error {
 	}
 
 	for _, node := range nodes {
-		err = c.ExportNode(labPath, node.Id)
+		err = c.ExportNode(labPath, node.ID)
 		if err != nil {
 			return errors.Wrap(err, "error during ExportNode")
 		}
@@ -400,11 +400,11 @@ func (c *EveNgClient) ExportNodes(labPath string) error {
 /*
 ExportNode exports a specific node in a lab
 */
-func (c *EveNgClient) ExportNode(labPath string, nodeId int) error {
+func (c *EveNgClient) ExportNode(labPath string, nodeID int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
-	_, err := c.request("PUT", endpointPath+"labs/"+labPath+"/nodes/"+strconv.Itoa(nodeId)+"/export", "", nil, nil)
+	_, err := c.request("PUT", endpointPath+"labs/"+labPath+"/nodes/"+strconv.Itoa(nodeID)+"/export", "", nil, nil)
 	if err != nil {
 		return errors.Wrap(err, "error during http get request")
 	}
@@ -416,7 +416,7 @@ func (c *EveNgClient) ExportNode(labPath string, nodeId int) error {
 SetNodeStartupConfig sets a startup config for a given node. The startup config is passed as a path to a
 local startup config file.
 */
-func (c *EveNgClient) SetNodeStartupConfig(labPath string, nodeId int, startupConfigFilePath string) error {
+func (c *EveNgClient) SetNodeStartupConfig(labPath string, nodeID int, startupConfigFilePath string) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
@@ -426,18 +426,18 @@ func (c *EveNgClient) SetNodeStartupConfig(labPath string, nodeId int, startupCo
 		return errors.Wrap(err, "error while reading file")
 	}
 	s := string(b)
-	return c.SetNodeStartupConfigString(labPath, nodeId, s)
+	return c.SetNodeStartupConfigString(labPath, nodeID, s)
 }
 
 /*
 SetNodeStartupConfigString sets a startup config for a given node. The startup config is passed as a string.
 */
-func (c *EveNgClient) SetNodeStartupConfigString(labPath string, nodeId int, startupConfigString string) error {
+func (c *EveNgClient) SetNodeStartupConfigString(labPath string, nodeID int, startupConfigString string) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
 	httpBody := make(map[string]string)
-	httpBody["id"] = strconv.Itoa(nodeId)
+	httpBody["id"] = strconv.Itoa(nodeID)
 	httpBody["data"] = startupConfigString
 	httpBody["cfsid"] = "default"
 
@@ -446,7 +446,7 @@ func (c *EveNgClient) SetNodeStartupConfigString(labPath string, nodeId int, sta
 		return errors.Wrap(err, "failed to marshal http body to json")
 	}
 
-	_, err = c.request("PUT", endpointPath+"labs/"+labPath+"/configs/"+strconv.Itoa(nodeId), string(b), nil, nil)
+	_, err = c.request("PUT", endpointPath+"labs/"+labPath+"/configs/"+strconv.Itoa(nodeID), string(b), nil, nil)
 	if err != nil {
 		return errors.Wrap(err, "error during http request")
 	}
@@ -458,11 +458,11 @@ func (c *EveNgClient) SetNodeStartupConfigString(labPath string, nodeId int, sta
 /*
 ConnectNodeInterfaceToNetwork connects the given node interface to a network
 */
-func (c *EveNgClient) ConnectNodeInterfaceToNetwork(labPath string, nodeId int, interfaceId int, networkId int) error {
+func (c *EveNgClient) ConnectNodeInterfaceToNetwork(labPath string, nodeID int, interfaceID int, networkID int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
-	_, err := c.request("PUT", endpointPath+"labs/"+labPath+"/nodes/"+strconv.Itoa(nodeId)+"/interfaces", `{"`+strconv.Itoa(interfaceId)+`":"`+strconv.Itoa(networkId)+`"}`, nil, nil)
+	_, err := c.request("PUT", endpointPath+"labs/"+labPath+"/nodes/"+strconv.Itoa(nodeID)+"/interfaces", `{"`+strconv.Itoa(interfaceID)+`":"`+strconv.Itoa(networkID)+`"}`, nil, nil)
 	if err != nil {
 		return errors.Wrap(err, "error during http get request")
 	}
@@ -473,11 +473,11 @@ func (c *EveNgClient) ConnectNodeInterfaceToNetwork(labPath string, nodeId int, 
 /*
 DisconnectNodeInterfaceFromNetwork disconnects the given node interface to a network
 */
-func (c *EveNgClient) DisconnectNodeInterfaceFromNetwork(labPath string, nodeId int, interfaceId int) error {
+func (c *EveNgClient) DisconnectNodeInterfaceFromNetwork(labPath string, nodeID int, interfaceID int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
-	_, err := c.request("PUT", endpointPath+"labs/"+labPath+"/nodes/"+strconv.Itoa(nodeId)+"/interfaces", `{"`+strconv.Itoa(interfaceId)+`":""}`, nil, nil)
+	_, err := c.request("PUT", endpointPath+"labs/"+labPath+"/nodes/"+strconv.Itoa(nodeID)+"/interfaces", `{"`+strconv.Itoa(interfaceID)+`":""}`, nil, nil)
 	if err != nil {
 		return errors.Wrap(err, "error during http get request")
 	}
@@ -488,11 +488,11 @@ func (c *EveNgClient) DisconnectNodeInterfaceFromNetwork(labPath string, nodeId 
 /*
 GetNodeInterfaces returns all interfaces for a specific lab node
 */
-func (c *EveNgClient) GetNodeInterfaces(labPath string, nodeId int) (Interfaces, error) {
+func (c *EveNgClient) GetNodeInterfaces(labPath string, nodeID int) (Interfaces, error) {
 	if !c.isValid() {
 		return Interfaces{}, &NotValidError{}
 	}
-	response, err := c.request("GET", endpointPath+"labs/"+labPath+"/nodes/"+strconv.Itoa(nodeId)+"/interfaces", "", nil, nil)
+	response, err := c.request("GET", endpointPath+"labs/"+labPath+"/nodes/"+strconv.Itoa(nodeID)+"/interfaces", "", nil, nil)
 	if err != nil {
 		return Interfaces{}, errors.Wrap(err, "error during http get request")
 	}
@@ -564,18 +564,18 @@ func (c *EveNgClient) AddNetwork(labPath string, networkType string, networkName
 		return 0, err
 	}
 
-	return createResponse.Id, err
+	return createResponse.ID, err
 }
 
 /*
 RemoveNetwork removes a given network
 */
-func (c *EveNgClient) RemoveNetwork(labPath string, networkId int) error {
+func (c *EveNgClient) RemoveNetwork(labPath string, networkID int) error {
 	if !c.isValid() {
 		return &NotValidError{}
 	}
 
-	_, err := c.request("DELETE", endpointPath+"labs/"+labPath+"/networks/"+strconv.Itoa(networkId), "", nil, nil)
+	_, err := c.request("DELETE", endpointPath+"labs/"+labPath+"/networks/"+strconv.Itoa(networkID), "", nil, nil)
 	if err != nil {
 		return errors.Wrap(err, "Error during http delete request")
 	}
@@ -605,11 +605,11 @@ func (c *EveNgClient) GetNetworks(labPath string) (Networks, error) {
 /*
 GetNetwork returns data for given network id for lab
 */
-func (c *EveNgClient) GetNetwork(labPath string, networkId int) (Network, error) {
+func (c *EveNgClient) GetNetwork(labPath string, networkID int) (Network, error) {
 	if !c.isValid() {
 		return Network{}, &NotValidError{}
 	}
-	response, err := c.request("GET", endpointPath+"labs/"+labPath+"/networks/"+strconv.Itoa(networkId), "", nil, nil)
+	response, err := c.request("GET", endpointPath+"labs/"+labPath+"/networks/"+strconv.Itoa(networkID), "", nil, nil)
 	if err != nil {
 		return Network{}, errors.Wrap(err, "error during http get request")
 	}

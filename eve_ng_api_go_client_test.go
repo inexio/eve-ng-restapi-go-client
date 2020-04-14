@@ -14,7 +14,7 @@ TestEveNgClient_LoginLogout covers:
 	- Logout
 */
 func TestEveNgClient_LoginLogout(t *testing.T) {
-	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
+	eveNgClient, err := NewEveNgClient(viper.GetString("BaseURL"))
 	if !assert.NoError(t, err, "Error while creating API client") {
 		return
 	}
@@ -41,7 +41,7 @@ TestEveNgClient_GetSystemStatus covers:
 	- GetSystemStatus
 */
 func TestEveNgClient_GetSystemStatus(t *testing.T) {
-	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
+	eveNgClient, err := NewEveNgClient(viper.GetString("BaseURL"))
 	if !assert.NoError(t, err, "Error while creating API client") {
 		return
 	}
@@ -65,7 +65,7 @@ func TestEveNgClient_GetSystemStatus(t *testing.T) {
 	systemStatus, err := eveNgClient.GetSystemStatus()
 	if assert.NoError(t, err, "Error during GetSystemStatus operation") {
 		assert.NotNil(t, systemStatus.Cached, "Dynamips is nil")
-		assert.NotNil(t, systemStatus.Cpu, "Vpcs is nil")
+		assert.NotNil(t, systemStatus.CPU, "Vpcs is nil")
 		assert.NotNil(t, systemStatus.Disk, "Docker is nil")
 		assert.NotNil(t, systemStatus.Dynamips, "Qemu is nil")
 		assert.NotNil(t, systemStatus.Iol, "Iol is nil")
@@ -83,7 +83,7 @@ TestEveNgClient_GetNodeTemplates covers:
 	- GetNodeTemplate
 */
 func TestEveNgClient_NodeTemplates(t *testing.T) {
-	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
+	eveNgClient, err := NewEveNgClient(viper.GetString("BaseURL"))
 	if !assert.NoError(t, err, "Error while creating API client") {
 		return
 	}
@@ -147,26 +147,26 @@ func TestEveNgClient_NodeTemplates(t *testing.T) {
 			assert.NotNil(t, nodeTemplate.Options.Nvram.Name, "Node template options nvram name is nil")
 			assert.NotNil(t, nodeTemplate.Options.Nvram.Type, "Node template options nvram type is nil")
 			assert.NotNil(t, nodeTemplate.Options.Nvram.Value, "Node template options nvram value is nil")
-			//Options.Ram
-			assert.NotEmpty(t, nodeTemplate.Options.Ram.Name, "Node template options ram name is empty")
-			assert.NotEmpty(t, nodeTemplate.Options.Ram.Type, "Node template options ram type is empty")
-			assert.NotNil(t, nodeTemplate.Options.Ram.Value, "Node template options ram value is nil")
+			//Options.RAM
+			assert.NotEmpty(t, nodeTemplate.Options.RAM.Name, "Node template options ram name is empty")
+			assert.NotEmpty(t, nodeTemplate.Options.RAM.Type, "Node template options ram type is empty")
+			assert.NotNil(t, nodeTemplate.Options.RAM.Value, "Node template options ram value is nil")
 			//Options.Serial
 			assert.NotNil(t, nodeTemplate.Options.Serial.Name, "Node template options serial name is nil")
 			assert.NotNil(t, nodeTemplate.Options.Serial.Type, "Node template options serial type is nil")
 			assert.NotNil(t, nodeTemplate.Options.Serial.Value, "Node template options serial value is nil")
-			//Options.Uuid
-			assert.NotEmpty(t, nodeTemplate.Options.Uuid.Name, "Node template options uuid name is empty")
-			assert.NotEmpty(t, nodeTemplate.Options.Uuid.Type, "Node template options uuid type is empty")
-			assert.NotNil(t, nodeTemplate.Options.Uuid.Value, "Node template options uuid value is nil")
-			//Options.CpuLimit
+			//Options.UUID
+			assert.NotEmpty(t, nodeTemplate.Options.UUID.Name, "Node template options uuid name is empty")
+			assert.NotEmpty(t, nodeTemplate.Options.UUID.Type, "Node template options uuid type is empty")
+			assert.NotNil(t, nodeTemplate.Options.UUID.Value, "Node template options uuid value is nil")
+			//Options.CPULimit
 			assert.NotEmpty(t, nodeTemplate.Options.Cpulimit.Name, "Node template options cpulimit name is empty")
 			assert.NotEmpty(t, nodeTemplate.Options.Cpulimit.Type, "Node template options cpulimit type is empty")
 			assert.NotNil(t, nodeTemplate.Options.Cpulimit.Value, "Node template options cpulimit value is nil")
-			//Options.Cpu
-			assert.NotEmpty(t, nodeTemplate.Options.Cpu.Name, "Node template options cpu name is empty")
-			assert.NotEmpty(t, nodeTemplate.Options.Cpu.Type, "Node template options cpu type is empty")
-			assert.NotNil(t, nodeTemplate.Options.Cpu.Value, "Node template options cpu value is nil")
+			//Options.CPU
+			assert.NotEmpty(t, nodeTemplate.Options.CPU.Name, "Node template options cpu name is empty")
+			assert.NotEmpty(t, nodeTemplate.Options.CPU.Type, "Node template options cpu type is empty")
+			assert.NotNil(t, nodeTemplate.Options.CPU.Value, "Node template options cpu value is nil")
 			//Options.Firstmac
 			assert.NotEmpty(t, nodeTemplate.Options.Firstmac.Name, "Node template options firstmac name is empty")
 			assert.NotEmpty(t, nodeTemplate.Options.Firstmac.Type, "Node template options firstmac type is empty")
@@ -217,7 +217,7 @@ TestEveNgClient_getFolderContents covers:
 	- getFolderContents
 */
 func TestEveNgClient_getFolderContents(t *testing.T) {
-	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
+	eveNgClient, err := NewEveNgClient(viper.GetString("BaseURL"))
 	if !assert.NoError(t, err, "Error while creating API client") {
 		return
 	}
@@ -250,7 +250,7 @@ TestEveNgClient_GetLabFiles covers:
 	- GetLabFiles
 */
 func TestEveNgClient_GetLabFiles(t *testing.T) {
-	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
+	eveNgClient, err := NewEveNgClient(viper.GetString("BaseURL"))
 	if !assert.NoError(t, err, "Error while creating API client") {
 		return
 	}
@@ -282,7 +282,7 @@ TestEveNgClient_GetFolders covers:
 	- GetFolders
 */
 func TestEveNgClient_GetFolders(t *testing.T) {
-	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
+	eveNgClient, err := NewEveNgClient(viper.GetString("BaseURL"))
 	if !assert.NoError(t, err, "Error while creating API client") {
 		return
 	}
@@ -314,7 +314,7 @@ TestEveNgClient_GetUserRoles covers:
 	- GetUserRoles
 */
 func TestEveNgClient_GetUserRoles(t *testing.T) {
-	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
+	eveNgClient, err := NewEveNgClient(viper.GetString("BaseURL"))
 	if !assert.NoError(t, err, "Error while creating API client") {
 		return
 	}
@@ -356,7 +356,7 @@ TestEveNgClient_Users covers:
 	- RemoveUser
 */
 func TestEveNgClient_Users(t *testing.T) {
-	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
+	eveNgClient, err := NewEveNgClient(viper.GetString("BaseURL"))
 	if !assert.NoError(t, err, "Error while creating API client") {
 		return
 	}
@@ -432,7 +432,7 @@ TestEveNgClient_GetNetworkTypes covers:
 	- GetNetworkTypes
 */
 func TestEveNgClient_GetNetworkTypes(t *testing.T) {
-	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
+	eveNgClient, err := NewEveNgClient(viper.GetString("BaseURL"))
 	if !assert.NoError(t, err, "Error while creating API client") {
 		return
 	}
@@ -473,7 +473,7 @@ TestEveNgClient_Folders covers:
 	- MoveFolder
 */
 func TestEveNgClient_Folders(t *testing.T) {
-	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
+	eveNgClient, err := NewEveNgClient(viper.GetString("BaseURL"))
 	if !assert.NoError(t, err, "Error while creating API client") {
 		return
 	}
@@ -601,7 +601,7 @@ TestEveNgClient_Labs covers:
 	- RemoveLabNetwork
 */
 func TestEveNgClient_Labs(t *testing.T) {
-	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
+	eveNgClient, err := NewEveNgClient(viper.GetString("BaseURL"))
 	if !assert.NoError(t, err, "Error while creating API client") {
 		return
 	}
@@ -638,7 +638,7 @@ func TestEveNgClient_Labs(t *testing.T) {
 
 		testLab, err := eveNgClient.GetLab(labPath)
 		if assert.NoError(t, err, "Error during GetLab operation") {
-			assert.NotEmpty(t, testLab.Id, "Lab ID is empty")
+			assert.NotEmpty(t, testLab.ID, "Lab ID is empty")
 			assert.Equal(t, "admin", testLab.Author, "TestLab author does not match expected value")
 			assert.Equal(t, "Test laboratory for unit and integration tests", testLab.Body, "TestLab body does not match expected value")
 			assert.Equal(t, "A test laboratory", testLab.Description, "TestLab description does not match expected value")
@@ -663,7 +663,7 @@ func TestEveNgClient_Labs(t *testing.T) {
 	if assert.NoError(t, err, "Error during EditLab operation") {
 		editedTestLab, err := eveNgClient.GetLab(renamedTestLabName + ".unl")
 		if assert.NoError(t, err, "Error during GetLab operation") {
-			assert.NotEmpty(t, editedTestLab.Id, "Lab ID is empty")
+			assert.NotEmpty(t, editedTestLab.ID, "Lab ID is empty")
 			assert.Equal(t, "testauthor", editedTestLab.Author, "TestLab author does not match expected value")
 			assert.Equal(t, "A changed test laboratory", editedTestLab.Description, "TestLab description does not match expected value")
 			assert.Equal(t, renamedTestLabName+".unl", editedTestLab.Filename, "TestLab filename does not match expected value")
@@ -682,14 +682,14 @@ func TestEveNgClient_Labs(t *testing.T) {
 	//Add, Get, Remove network test functions
 	foundNetworks := 0
 
-	networkId, err := eveNgClient.AddNetwork(labPath, "bridge", "TestNetwork", 69, 420, 1, 0)
+	networkID, err := eveNgClient.AddNetwork(labPath, "bridge", "TestNetwork", 69, 420, 1, 0)
 	if assert.NoError(t, err, "Error during AddLabNetwork operation") {
 		labNetworks, err := eveNgClient.GetNetworks(labPath)
 		if assert.NoError(t, err, "Error during GetLabNetworks operation") {
 			if assert.True(t, len(labNetworks) > 0, "No lab networks found during GetLabNetworks operation") {
 				foundNetworks = len(labNetworks)
 				for _, labNetwork := range labNetworks {
-					labNetworkDetails, err := eveNgClient.GetNetwork(labPath, labNetwork.Id)
+					labNetworkDetails, err := eveNgClient.GetNetwork(labPath, labNetwork.ID)
 					if !assert.NoError(t, err, "Error during GetLabNetwork operation") {
 						assert.NotNil(t, labNetworkDetails.Count, "Network count is nil")
 						assert.Equal(t, "TestNetwork", labNetworkDetails.Name, "Network name is empty")
@@ -708,7 +708,7 @@ func TestEveNgClient_Labs(t *testing.T) {
 		}
 	}
 	defer func() {
-		err = eveNgClient.RemoveNetwork(labPath, networkId)
+		err = eveNgClient.RemoveNetwork(labPath, networkID)
 		if assert.NoError(t, err, "Error during RemoveLabNetwork operation") {
 			labNetworks, err := eveNgClient.GetNetworks(labPath)
 			if assert.NoError(t, err, "Error during GetLabNetworks operation") {
@@ -777,7 +777,7 @@ TestEveNgClient_Nodes covers:
 	- GetLabTopology
 */
 func TestEveNgClient_Nodes(t *testing.T) {
-	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
+	eveNgClient, err := NewEveNgClient(viper.GetString("BaseURL"))
 	if !assert.NoError(t, err, "Error while creating API client") {
 		return
 	}
@@ -808,39 +808,39 @@ func TestEveNgClient_Nodes(t *testing.T) {
 	}()
 
 	//Add a network to the lab
-	networkId, err := eveNgClient.AddNetwork(labPath, "nat0", "TestNetwork", 69, 420, 1, 0)
+	networkID, err := eveNgClient.AddNetwork(labPath, "nat0", "TestNetwork", 69, 420, 1, 0)
 	defer func() {
 		labNetworks, _ := eveNgClient.GetNetworks(labPath)
 		for _, labNetwork := range labNetworks {
-			err = eveNgClient.RemoveNetwork(labPath, labNetwork.Id)
+			err = eveNgClient.RemoveNetwork(labPath, labNetwork.ID)
 		}
 	}()
 
 	//Add nodes to the lab
 	foundNodes := 0
 
-	nodeId, err := eveNgClient.AddNode(labPath, "qemu", "asav", "0", 0, "ASA.png", "asav-952-204", "ASAv", 404, 227, 2048, "telnet", 1, "undefined", 8, "", "", "", "", 1)
+	nodeID, err := eveNgClient.AddNode(labPath, "qemu", "asav", "0", 0, "ASA.png", "asav-952-204", "ASAv", 404, 227, 2048, "telnet", 1, "undefined", 8, "", "", "", "", 1)
 	if assert.NoError(t, err, "Error during AddLabNode operation") {
 		labNodesBeforeRemove, err := eveNgClient.GetNodes(labPath)
 		foundNodes = len(labNodesBeforeRemove)
 		if assert.NoError(t, err, "Error during GetLabNodes operation") {
 			if assert.True(t, len(labNodesBeforeRemove) > 0, "No lab nodes found during GetLabNodes operation") {
 				for _, labNode := range labNodesBeforeRemove {
-					labNodeDetails, err := eveNgClient.GetNode(labPath, labNode.Id)
+					labNodeDetails, err := eveNgClient.GetNode(labPath, labNode.ID)
 					if assert.NoError(t, err, "Error during GetLabNode operation") {
-						assert.NotEmpty(t, labNodeDetails.Uuid, "Node uuid does is empty")
+						assert.NotEmpty(t, labNodeDetails.UUID, "Node uuid does is empty")
 						assert.Equal(t, "ASAv", labNodeDetails.Name, "Node name does not match expected value")
 						assert.Equal(t, "qemu", labNodeDetails.Type, "Node type does not match expected value")
 						assert.Equal(t, 0, labNodeDetails.Status, "Node status does not match expected value")
 						assert.Equal(t, "asav", labNodeDetails.Template, "Node template does not match expected value")
-						assert.Equal(t, 1, labNodeDetails.Cpu, "Node cpu does not match expected value")
-						assert.Equal(t, 2048, labNodeDetails.Ram, "Node ram does not match expected value")
+						assert.Equal(t, 1, labNodeDetails.CPU, "Node cpu does not match expected value")
+						assert.Equal(t, 2048, labNodeDetails.RAM, "Node ram does not match expected value")
 						assert.Equal(t, "asav-952-204", labNodeDetails.Image, "Node image does not match expected value")
 						assert.Equal(t, "telnet", labNodeDetails.Console, "Node console does not match expected value")
 						assert.Equal(t, 8, labNodeDetails.Ethernet, "Node ethernet does not match expected value")
 						assert.Equal(t, 0, labNodeDetails.Delay, "Node Delay does not match expected value")
 						assert.Equal(t, "ASA.png", labNodeDetails.Icon, "Node icon does not match expected value")
-						assert.NotEmpty(t, labNodeDetails.Url, "Node url is empty")
+						assert.NotEmpty(t, labNodeDetails.URL, "Node url is empty")
 						assert.Equal(t, 227, labNodeDetails.Top, "Node top does not match expected value")
 						assert.Equal(t, 404, labNodeDetails.Left, "Node left does not match expected value")
 						assert.Equal(t, "0", labNodeDetails.Config, "Node Config does not match expected value")
@@ -852,7 +852,7 @@ func TestEveNgClient_Nodes(t *testing.T) {
 		}
 	}
 	defer func() {
-		err = eveNgClient.RemoveNode(labPath, nodeId)
+		err = eveNgClient.RemoveNode(labPath, nodeID)
 		if assert.NoError(t, err, "Error during RemoveLabNode operation") {
 			labNodesAfterRemove, err := eveNgClient.GetNodes(labPath)
 			if assert.NoError(t, err, "Error during GetLabFiles operation") {
@@ -862,18 +862,18 @@ func TestEveNgClient_Nodes(t *testing.T) {
 	}()
 
 	//Start single node
-	err = eveNgClient.StartNode(labPath, nodeId)
+	err = eveNgClient.StartNode(labPath, nodeID)
 	if assert.NoError(t, err, "Error during StartLabNode operation") {
-		labNode, err := eveNgClient.GetNode(labPath, nodeId)
+		labNode, err := eveNgClient.GetNode(labPath, nodeID)
 		if assert.NoError(t, err, "Error during GetLabNode operation") {
 			assert.Equal(t, 2, labNode.Status, "Starting LabNode didn't work")
 		}
 	}
 
 	//Stop single node
-	err = eveNgClient.StopNode(labPath, nodeId)
+	err = eveNgClient.StopNode(labPath, nodeID)
 	if assert.NoError(t, err, "Error during StopLabNode operation") {
-		labNode, err := eveNgClient.GetNode(labPath, nodeId)
+		labNode, err := eveNgClient.GetNode(labPath, nodeID)
 		if assert.NoError(t, err, "Error during GetLabNode operation") {
 			assert.Equal(t, 0, labNode.Status, "Stopping LabNode didn't work")
 		}
@@ -885,7 +885,7 @@ func TestEveNgClient_Nodes(t *testing.T) {
 		labNodes, err := eveNgClient.GetNodes(labPath)
 		if assert.NoError(t, err, "Error during GetLabNodes operation") {
 			for _, labNode := range labNodes {
-				assert.Equal(t, 2, labNode.Status, "Node "+strconv.Itoa(labNode.Id)+" wasn't started correctly")
+				assert.Equal(t, 2, labNode.Status, "Node "+strconv.Itoa(labNode.ID)+" wasn't started correctly")
 			}
 		}
 	}
@@ -896,33 +896,33 @@ func TestEveNgClient_Nodes(t *testing.T) {
 			labNodes, err := eveNgClient.GetNodes(labPath)
 			if assert.NoError(t, err, "Error during GetLabNodes operation") {
 				for _, labNode := range labNodes {
-					assert.Equal(t, 0, labNode.Status, "Node "+strconv.Itoa(labNode.Id)+" wasn't stopped correctly")
+					assert.Equal(t, 0, labNode.Status, "Node "+strconv.Itoa(labNode.ID)+" wasn't stopped correctly")
 				}
 			}
 		}
 	}()
 
 	//Connect node interface to network
-	err = eveNgClient.ConnectNodeInterfaceToNetwork(labPath, nodeId, 1, networkId)
+	err = eveNgClient.ConnectNodeInterfaceToNetwork(labPath, nodeID, 1, networkID)
 	if assert.NoError(t, err, "Error during ConnectNodeInterfaceToNetwork operation") {
-		nodeInterfaces, err := eveNgClient.GetNodeInterfaces(labPath, nodeId)
+		nodeInterfaces, err := eveNgClient.GetNodeInterfaces(labPath, nodeID)
 		if assert.NoError(t, err, "Error during GetNodeInterfaces operation") {
 			for _, ethernetInterface := range nodeInterfaces.Ethernet {
 				if ethernetInterface.Name == "Eth1" {
-					assert.Equal(t, networkId, ethernetInterface.NetworkId, "Network was not correctly added to NodeInterface")
+					assert.Equal(t, networkID, ethernetInterface.NetworkID, "Network was not correctly added to NodeInterface")
 				}
 			}
 		}
 	}
 	defer func() {
 		//Disconnect node from network
-		err = eveNgClient.DisconnectNodeInterfaceFromNetwork(labPath, nodeId, 1)
+		err = eveNgClient.DisconnectNodeInterfaceFromNetwork(labPath, nodeID, 1)
 		if assert.NoError(t, err, "Error during DisconnectNodeInterfaceFromNetwork") {
-			nodeInterfaces, err := eveNgClient.GetNodeInterfaces(labPath, nodeId)
+			nodeInterfaces, err := eveNgClient.GetNodeInterfaces(labPath, nodeID)
 			if assert.NoError(t, err, "Error during GetNodeInterfaces operation") {
 				for _, ethernetInterface := range nodeInterfaces.Ethernet {
 					if ethernetInterface.Name == "Eth1" {
-						assert.Equal(t, nil, ethernetInterface.NetworkId, "Network was not correctly added to NodeInterface")
+						assert.Equal(t, nil, ethernetInterface.NetworkID, "Network was not correctly added to NodeInterface")
 					}
 				}
 			}
@@ -937,7 +937,7 @@ func TestEveNgClient_Nodes(t *testing.T) {
 				assert.NotEmpty(t, topologyPoint.Destination, "Destination is empty")
 				assert.NotNil(t, topologyPoint.DestinationLabel, "DestinationLabel is nil")
 				assert.NotEmpty(t, topologyPoint.DestinationType, "DestinationType is empty")
-				assert.NotNil(t, topologyPoint.DestinationInterfaceId, "DestinationInterfaceId is nil")
+				assert.NotNil(t, topologyPoint.DestinationInterfaceID, "DestinationInterfaceId is nil")
 				assert.NotNil(t, topologyPoint.DestinationNodename, "DestinationNodename is nil")
 				assert.NotNil(t, topologyPoint.DestinationSuspend, "DestinationSuspend is nil")
 				assert.NotNil(t, topologyPoint.DestinationDelay, "DestinationDelay is nil")
@@ -948,14 +948,14 @@ func TestEveNgClient_Nodes(t *testing.T) {
 				assert.NotNil(t, topologyPoint.SourceLabel, "SourceLabel is nil")
 				assert.NotEmpty(t, topologyPoint.SourceType, "SourceType is empty")
 				assert.NotNil(t, topologyPoint.SourceNodename, "SourceNodenam is empty")
-				assert.NotNil(t, topologyPoint.SourceInterfaceId, "SourceInterfaceId is nil")
+				assert.NotNil(t, topologyPoint.SourceInterfaceID, "SourceInterfaceId is nil")
 				assert.NotNil(t, topologyPoint.SourceSuspend, "SourceSuspend is nil")
 				assert.NotNil(t, topologyPoint.SourceDelay, "SourceDelay is nil")
 				assert.NotNil(t, topologyPoint.SourceLoss, "SourceLoss is nil")
 				assert.NotNil(t, topologyPoint.SourceBandwidth, "SourceBandwidth is nil")
 				assert.NotNil(t, topologyPoint.SourceJitter, "SourceJitter is nil")
 				assert.NotEmpty(t, topologyPoint.Type, "Type is empty")
-				assert.NotNil(t, topologyPoint.NetworkId, "NetworkId is nil")
+				assert.NotNil(t, topologyPoint.NetworkID, "NetworkId is nil")
 				assert.NotNil(t, topologyPoint.Style, "Style is nil")
 				assert.NotNil(t, topologyPoint.Linkstyle, "Linkstyle is nil")
 				assert.NotNil(t, topologyPoint.Label, "Label is nil")
@@ -974,7 +974,7 @@ TestEveNgClient_ExportWipeNodes covers:
 	- WipeLabNodes
 */
 func TestEveNgClient_ExportWipeNodes(t *testing.T) {
-	eveNgClient, err := NewEveNgClient(viper.GetString("BaseUrl"))
+	eveNgClient, err := NewEveNgClient(viper.GetString("BaseURL"))
 	if !assert.NoError(t, err, "Error while creating API client") {
 		return
 	}
@@ -1004,13 +1004,13 @@ func TestEveNgClient_ExportWipeNodes(t *testing.T) {
 		err = eveNgClient.RemoveLab(labPath)
 	}()
 
-	nodeId, _ := eveNgClient.AddNode(labPath, "qemu", "asav", "0", 0, "ASA.png", "asav-952-204", "ASAv", 404, 227, 2048, "telnet", 1, "undefined", 8, "", "", "", "", 1)
+	nodeID, _ := eveNgClient.AddNode(labPath, "qemu", "asav", "0", 0, "ASA.png", "asav-952-204", "ASAv", 404, 227, 2048, "telnet", 1, "undefined", 8, "", "", "", "", 1)
 	defer func() {
-		_ = eveNgClient.RemoveNode(labPath, nodeId)
+		_ = eveNgClient.RemoveNode(labPath, nodeID)
 	}()
 
 	//Export the nodes start configs
-	err = eveNgClient.ExportNode(labPath, nodeId)
+	err = eveNgClient.ExportNode(labPath, nodeID)
 	assert.NoError(t, err, "Error during ExportLabNode operation")
 
 	//Export all nodes start configs
@@ -1018,7 +1018,7 @@ func TestEveNgClient_ExportWipeNodes(t *testing.T) {
 	assert.NoError(t, err, "Error during ExportLabNodes operation")
 
 	//Wipe the node
-	err = eveNgClient.WipeNode(labPath, nodeId)
+	err = eveNgClient.WipeNode(labPath, nodeID)
 	assert.NoError(t, err, "Error during WipeNode operation")
 
 	//Wipe all nodes

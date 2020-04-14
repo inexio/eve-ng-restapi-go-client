@@ -126,13 +126,13 @@ labName := "TestLaboratory" //name of the laboratory
 
 _ = eveNgClient.AddLab(labFolder, labName, "1", "admin", "A test laboratory", "Test laboratory for unit and integration tests")
 
-networkId, _ = eveNgClient.AddNetwork("/TestFolder/TestLaboratory.unl", "nat0", "TestNetwork", "69", "420", 1, 0)
+networkID, _ = eveNgClient.AddNetwork("/TestFolder/TestLaboratory.unl", "nat0", "TestNetwork", "69", "420", 1, 0)
 
-nodeId, _ := eveNgClient.AddNode("/TestFolder/TestLaboratory.unl", "qemu", "veos", "0", 0, "AristaSW.png", "veos-4.16.14M", "vEOS", "420", "69", "512", "telnet", 1, "undefined", 4, "", "", "", "", 1)
+nodeID, _ := eveNgClient.AddNode("/TestFolder/TestLaboratory.unl", "qemu", "veos", "0", 0, "AristaSW.png", "veos-4.16.14M", "vEOS", "420", "69", "512", "telnet", 1, "undefined", 4, "", "", "", "", 1)
 
-_ = eveNgClient.ConnectNodeInterfaceToNetwork("/TestFolder/TestLaboratory.unl", nodeId, 1, networkId)
+_ = eveNgClient.ConnectNodeInterfaceToNetwork("/TestFolder/TestLaboratory.unl", nodeID, 1, networkID)
 
-_ = eveNgClient.StartNode("/TestFolder/TestLaboratory.unl", nodeId)
+_ = eveNgClient.StartNode("/TestFolder/TestLaboratory.unl", nodeID)
 
 labTopology, _ := eveNgClient.GetTopology("/TestFolder/TestLaboratory.unl")
 
